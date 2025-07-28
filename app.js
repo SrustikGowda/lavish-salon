@@ -12,8 +12,8 @@ let appData = {
 const sampleData = {
     general: {
         name: "Lavish Beauty Salon",
-        address: "123 Glam Street, New Delhi, 110048",
-        phone: "919999888777",
+        address: "123 MG road, Chickmagalur, 577101",
+        phone: "919019309686",
         email: "info@lavishbeauty.in",
         instagram: "lavishbeautyindia",
         facebook: "lavishbeautyofficial"
@@ -22,135 +22,132 @@ const sampleData = {
         categories: [
             {
                 name: "Hair Services",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1748689467/pplx_project_search_images/833b146d4667d34615c345cc58cb19b203f021e8.jpg",
+                image: "image_assets/services/Hair Services/hair_service.jpg",
                 sub: [
-                    { name: "Haircut (Basic)", price: 200, description: "Classic trim with wash and style", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/b488e465e52d6af99f62a369ad211fe1b36d5746.jpg" },
-                    { name: "Haircut (Advanced)", price: 400, description: "Professional restyle with blow-dry", image: "https://pplx-res.cloudinary.com/image/upload/v1748689467/pplx_project_search_images/833b146d4667d34615c345cc58cb19b203f021e8.jpg" },
-                    { name: "Hair Spa (Basic)", price: 800, description: "Relaxing moisture spa treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Hair Spa (Advanced)", price: 1300, description: "Intensive repair and nourishment ritual", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Head Massage (Oil)", price: 300, description: "15-minute aromatic oil massage", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
+                    { name: "Haircut (Basic)", price: 200, description: "Classic trim with wash and style", image: "image_assets/brands/b488e465e52d6af99f62a369ad211fe1b36d5746.jpg" },
+                    { name: "Haircut (Advanced)", price: 400, description: "Professional restyle with blow-dry", image: "image_assets/brands/833b146d4667d34615c345cc58cb19b203f021e8.jpg" },
+                    { name: "Hair Spa (Basic)", price: 800, description: "Relaxing moisture spa treatment", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
+                    { name: "Hair Spa (Advanced)", price: 1300, description: "Intensive repair and nourishment ritual", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Head Massage (Oil)", price: 300, description: "15-minute aromatic oil massage", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
                 ]
             },
             {
                 name: "Hair Coloring",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg",
+                image: "image_assets/services/Hair Coloring/hair_coloring.jpg",
                 sub: [
-                    { name: "Global Hair Color (Short)", price: 3000, description: "Ammonia-free global color transformation", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Global Hair Color (Medium)", price: 4000, description: "Medium length global color service", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Global Hair Color (Long)", price: 5000, description: "Full length global color application", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Root Touch Up", price: 1000, description: "Perfect coverage for regrowth", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Highlights per streak", price: 200, description: "Customize your hair with beautiful streaks", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Henna Application", price: 400, description: "Natural henna color and conditioning", image: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" }
+                    { name: "Global Hair Color (Short)", price: 3000, description: "Ammonia-free global color transformation", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
+                    { name: "Global Hair Color (Medium)", price: 4000, description: "Medium length global color service", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
+                    { name: "Global Hair Color (Long)", price: 5000, description: "Full length global color application", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
+                    { name: "Root Touch Up", price: 1000, description: "Perfect coverage for regrowth", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
+                    { name: "Highlights per streak", price: 200, description: "Customize your hair with beautiful streaks", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
+                    { name: "Henna Application", price: 400, description: "Natural henna color and conditioning", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" }
                 ]
             },
             {
                 name: "Hair Treatment",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg",
+                image: "image_assets/services/Hair Treatment/Keratin-treatment-2.jpg",
                 sub: [
-                    { name: "Straightening/Smoothening (Short)", price: 3000, description: "Professional hair straightening for short hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Straightening/Smoothening (Medium)", price: 4000, description: "Professional hair straightening for medium hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Straightening/Smoothening (Long)", price: 5000, description: "Professional hair straightening for long hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Short)", price: 4000, description: "Intensive keratin repair for short hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Medium)", price: 5000, description: "Intensive keratin repair for medium hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Long)", price: 6000, description: "Intensive keratin repair for long hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Short)", price: 6000, description: "Hair botox treatment for short hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Medium)", price: 7000, description: "Hair botox treatment for medium hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Long)", price: 8000, description: "Hair botox treatment for long hair", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg" }
+                    { name: "Straightening/Smoothening (Short)", price: 3000, description: "Professional hair straightening for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Straightening/Smoothening (Medium)", price: 4000, description: "Professional hair straightening for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Straightening/Smoothening (Long)", price: 5000, description: "Professional hair straightening for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Keratin Treatment (Short)", price: 4000, description: "Intensive keratin repair for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Keratin Treatment (Medium)", price: 5000, description: "Intensive keratin repair for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Keratin Treatment (Long)", price: 6000, description: "Intensive keratin repair for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Botox Treatment (Short)", price: 6000, description: "Hair botox treatment for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Botox Treatment (Medium)", price: 7000, description: "Hair botox treatment for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
+                    { name: "Botox Treatment (Long)", price: 8000, description: "Hair botox treatment for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" }
                 ]
             },
             {
                 name: "Facials",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg",
+                image: "image_assets/services/Facials/Facial.jpg",
                 sub: [
-                    { name: "Clean up", price: 300, description: "Basic facial cleanup and moisturizing", image: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Fruit Facial", price: 600, description: "Refreshing fruit-based facial treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Gold Facial", price: 900, description: "Luxurious gold-infused facial therapy", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "Diamond/Pearl Facial", price: 1200, description: "Premium diamond and pearl facial", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "O3 D-Tan Facial", price: 1300, description: "Professional de-tan treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "Korean Facial", price: 1500, description: "Korean-style multi-step facial treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "O3 Bridal Facial", price: 1500, description: "Special bridal preparation facial", image: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
+                    { name: "Clean up", price: 300, description: "Basic facial cleanup and moisturizing", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
+                    { name: "Fruit Facial", price: 600, description: "Refreshing fruit-based facial treatment", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
+                    { name: "Gold Facial", price: 900, description: "Luxurious gold-infused facial therapy", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
+                    { name: "Diamond/Pearl Facial", price: 1200, description: "Premium diamond and pearl facial", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
+                    { name: "O3 D-Tan Facial", price: 1300, description: "Professional de-tan treatment", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
+                    { name: "Korean Facial", price: 1500, description: "Korean-style multi-step facial treatment", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
+                    { name: "O3 Bridal Facial", price: 1500, description: "Special bridal preparation facial", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
                 ]
             },
             {
                 name: "Waxing",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg",
+                image: "image_assets/services/Waxing/waxing.jpg",
                 sub: [
-                    { name: "Full Arms (Normal)", price: 300, description: "Complete arm waxing service", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Arms (Rica)", price: 500, description: "Premium Rica wax for arms", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Legs (Normal)", price: 400, description: "Complete leg waxing service", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Legs (Rica)", price: 600, description: "Premium Rica wax for legs", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Underarms (Normal)", price: 100, description: "Underarm waxing service", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Underarms (Rica)", price: 200, description: "Premium Rica wax for underarms", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Face (Normal)", price: 200, description: "Facial waxing service", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Face (Rica)", price: 350, description: "Premium Rica wax for face", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Body (Normal)", price: 1300, description: "Complete body waxing service", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Body (Rica)", price: 2000, description: "Premium Rica full body wax", image: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" }
+                    { name: "Full Arms (Normal)", price: 300, description: "Complete arm waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Full Arms (Rica)", price: 500, description: "Premium Rica wax for arms", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Full Legs (Normal)", price: 400, description: "Complete leg waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Full Legs (Rica)", price: 600, description: "Premium Rica wax for legs", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Underarms (Normal)", price: 100, description: "Underarm waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Underarms (Rica)", price: 200, description: "Premium Rica wax for underarms", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Face (Normal)", price: 200, description: "Facial waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Face (Rica)", price: 350, description: "Premium Rica wax for face", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Full Body (Normal)", price: 1300, description: "Complete body waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
+                    { name: "Full Body (Rica)", price: 2000, description: "Premium Rica full body wax", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" }
                 ]
             },
             {
                 name: "Manicure & Pedicure",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg",
+                image: "image_assets/services/Manicure & Pedicure/manicure.jpeg",
                 sub: [
-                    { name: "Manicure (Basic)", price: 400, description: "Complete basic manicure service", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Manicure (Advanced)", price: 700, description: "Premium advanced manicure treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Pedicure (Basic)", price: 500, description: "Complete basic pedicure service", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Pedicure (Advanced)", price: 800, description: "Premium advanced pedicure treatment", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Nail Polish Application", price: 100, description: "Professional nail polish application", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Gel Nail Polish application", price: 300, description: "Long-lasting gel nail polish", image: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" }
+                    { name: "Manicure (Basic)", price: 400, description: "Complete basic manicure service", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
+                    { name: "Manicure (Advanced)", price: 700, description: "Premium advanced manicure treatment", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
+                    { name: "Pedicure (Basic)", price: 500, description: "Complete basic pedicure service", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
+                    { name: "Pedicure (Advanced)", price: 800, description: "Premium advanced pedicure treatment", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
+                    { name: "Nail Polish Application", price: 100, description: "Professional nail polish application", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
+                    { name: "Gel Nail Polish application", price: 300, description: "Long-lasting gel nail polish", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" }
                 ]
             },
             {
                 name: "Makeup",
-                image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46813f2b88c6f5abca5f7d.jpg",
+                image: "image_assets/services/Makeup/makeup.jpg",
                 sub: [
-                    { name: "Party Makeup", price: 1500, description: "Glamorous party makeup look", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" },
-                    { name: "Party Makeup (Kids)", price: 500, description: "Fun and safe makeup for kids", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" },
-                    { name: "HD Bridal Makeup (Basic Products)", price: 5000, description: "Beautiful bridal makeup with basic products", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" },
-                    { name: "HD Bridal Makeup (High-end Products)", price: 10000, description: "Luxury bridal makeup with premium products", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" },
-                    { name: "Saree Draping", price: 300, description: "Professional saree draping service", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" },
-                    { name: "Hair Styling", price: 500, description: "Professional hair styling service", image: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg" }
+                    { name: "Party Makeup", price: 1500, description: "Glamorous party makeup look", image: "image_assets/testimonials/placeholder.png" },
+                    { name: "Party Makeup (Kids)", price: 500, description: "Fun and safe makeup for kids", image: "image_assets/testimonials/placeholder.png" },
+                    { name: "HD Bridal Makeup (Basic Products)", price: 5000, description: "Beautiful bridal makeup with basic products", image: "image_assets/testimonials/placeholder.png" },
+                    { name: "HD Bridal Makeup (High-end Products)", price: 10000, description: "Luxury bridal makeup with premium products", image: "image_assets/testimonials/placeholder.png" },
+                    { name: "Saree Draping", price: 300, description: "Professional saree draping service", image: "image_assets/testimonials/placeholder.png" },
+                    { name: "Hair Styling", price: 500, description: "Professional hair styling service", image: "image_assets/testimonials/placeholder.png" }
                 ]
             }
         ]
     },
     beauticians: {
         team: [
-            { name: "Riya Sharma", role: "Senior Stylist", photo: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg", bio: "12+ years of experience in creative cuts and modern styling techniques." },
-            { name: "Ayesha Khan", role: "Color Expert", photo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg", bio: "Balayage and vivid color specialist with international training." },
-            { name: "Priya Gupta", role: "Facial Specialist", photo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg", bio: "Expert in skincare treatments and luxury facial therapies." },
-            { name: "Meera Singh", role: "Bridal Expert", photo: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg", bio: "Specializes in bridal makeup and traditional styling." }
+            { name: "Nagaratna Manohar", role: "Senior Stylist", photo: "image_assets/beauticians/Nagaratna.jpg", bio: "12+ years of experience in creative cuts and modern styling techniques." }
         ]
     },
     testimonials: {
         reviews: [
-            { name: "Neha Verma", stars: 5, photo: "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg", message: "Absolutely loved my makeover experience! The staff is incredibly professional and the ambiance is so relaxing. Highly recommend!" },
-            { name: "Priya Singh", stars: 4, photo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg", message: "Great quality products and excellent service. The facial treatment left my skin glowing for weeks!" },
-            { name: "Kavya Patel", stars: 5, photo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg", message: "The best salon in Delhi! Beautiful interiors, skilled staff, and amazing results every time." },
-            { name: "Simran Kaur", stars: 5, photo: "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg", message: "Perfect bridal makeup service! They made my special day even more beautiful. Thank you team Lavish!" }
+            { name: "Deepika Padukone", stars: 5, photo: "image_assets/testimonials/test1.jpg", message: "Absolutely loved my makeover experience! The staff is incredibly professional and the ambiance is so relaxing. Highly recommend!" },
+            { name: "Alia Bhatt", stars: 4, photo: "image_assets/testimonials/alia.jpg", message: "Great quality products and excellent service. The facial treatment left my skin glowing for weeks!" },
+            { name: "Nora Fatehi", stars: 5, photo: "image_assets/testimonials/nora.jpg", message: "The best salon in Delhi! Beautiful interiors, skilled staff, and amazing results every time." },
+            { name: "Samantha", stars: 5, photo: "image_assets/testimonials/samanta.jpg", message: "Perfect bridal makeup service! They made my special day even more beautiful. Thank you team Lavish!" }
         ]
     },
     brands: {
         brands: [
-            { name: "L'Oréal Professionnel", logo: "https://pplx-res.cloudinary.com/image/upload/v1749995781/pplx_project_search_images/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-            { name: "Wella", logo: "https://pplx-res.cloudinary.com/image/upload/v1748689467/pplx_project_search_images/833b146d4667d34615c345cc58cb19b203f021e8.jpg" },
-            { name: "O3+", logo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-            { name: "Matrix", logo: "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/b488e465e52d6af99f62a369ad211fe1b36d5746.jpg" },
-            { name: "Schwarzkopf", logo: "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-            { name: "Kerastase", logo: "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" }
+            { name: "L'Oréal Professionnel", logo: "image_assets/brands/loreal-professionnel.jpg" },
+            { name: "Lakme", logo: "image_assets/brands/Lakme.jpg" },
+            { name: "O3+", logo: "image_assets/brands/O3Plus.png" },
+            { name: "Lotus", logo: "image_assets/brands/Lotus.jpg" },
+            { name: "Sugar", logo: "image_assets/brands/sugar-cosmetics.jpg" },
+            { name: "Biotique", logo: "image_assets/brands/Biotique.jpg" }
         ]
     }
 };
 
 // Gallery images (simulating dynamic loading)
 const galleryImages = [
-    "https://pplx-res.cloudinary.com/image/upload/v1751608010/pplx_project_search_images/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1749408120/pplx_project_search_images/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1753608300/pplx_project_search_images/644ec3faf67728cd9a46831f2b88c6f5abca5f7d.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1753620744/pplx_project_search_images/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/d7c72362678ffbe3df73520f599674506af35d7e.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1748689467/pplx_project_search_images/833b146d4667d34615c345cc58cb19b203f021e8.jpg",
-    "https://pplx-res.cloudinary.com/image/upload/v1753724498/pplx_project_search_images/b488e465e52d6af99f62a369ad211fe1b36d5746.jpg"
+    "image_assets/galleryImages/salon1.jpg",
+    "image_assets/galleryImages/salon2.jpg",
+    "image_assets/galleryImages/salon3.jpg",
+    "image_assets/galleryImages/salon4.jpg",
+    "image_assets/galleryImages/salon5.jpg",
+    "image_assets/galleryImages/salon6.jpg",
+    "image_assets/galleryImages/salon7.jpg",
+    "image_assets/galleryImages/salon8.jpg"
 ];
 
 // Utility function to simulate loading YAML data
