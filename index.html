@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavish Beauty Salon - Premium Beauty Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Welcome Animation Overlay -->
+    <div id="welcome-overlay" class="welcome-overlay">
+        <div class="welcome-content">
+            <h1 class="welcome-text">Welcome to</h1>
+            <h2 class="welcome-salon-name">Lavish Beauty Salon</h2>
+            <div class="welcome-loader"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Lavish Beauty</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#testimonials" class="nav-link">Reviews</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#partners" class="nav-link">Partners</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="btn btn--primary nav-book-btn" onclick="openBookingModal()">Book Now</button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="hero-title">Transform Your Beauty</h1>
+            <p class="hero-subtitle">Experience luxury and elegance at Delhi's premier beauty destination</p>
+            <div class="hero-buttons">
+                <button class="btn btn--primary btn--lg" onclick="openBookingModal()">Book Appointment</button>
+                <a href="#services" class="btn btn--outline btn--lg">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Discover our comprehensive range of beauty treatments</p>
+            </div>
+            <div id="services-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading services...</p>
+            </div>
+            <div id="services-container" class="services-grid" style="display: none;">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Salon Gallery</h2>
+                <p class="section-subtitle">Take a glimpse into our luxurious salon environment</p>
+            </div>
+            <div id="gallery-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading gallery...</p>
+            </div>
+            <div id="gallery-container" class="gallery-grid" style="display: none;">
+                <!-- Gallery will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-subtitle">Real experiences from our valued customers</p>
+            </div>
+            <div id="testimonials-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading testimonials...</p>
+            </div>
+            <div id="testimonials-container" class="testimonials-carousel" style="display: none;">
+                <!-- Testimonials will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Our Expert Team</h2>
+                <p class="section-subtitle">Meet our skilled beauticians and stylists</p>
+            </div>
+            <div id="team-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading team...</p>
+            </div>
+            <div id="team-container" class="team-grid" style="display: none;">
+                <!-- Team will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Partners Section -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Brand Partners</h2>
+                <p class="section-subtitle">We use premium products from trusted brands</p>
+            </div>
+            <div id="partners-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading partners...</p>
+            </div>
+            <div id="partners-container" class="partners-grid" style="display: none;">
+                <!-- Partners will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Visit us or reach out for appointments</p>
+            </div>
+            <div id="contact-loading" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading contact info...</p>
+            </div>
+            <div id="contact-container" class="contact-content" style="display: none;">
+                <!-- Contact info will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeBookingModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Your Appointment</h3>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label class="form-label">Select Date</label>
+                        <input type="date" id="booking-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select Time</label>
+                        <select id="booking-time" class="form-control" required>
+                            <option value="">Choose time</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select Service Category</label>
+                        <select id="booking-category" class="form-control" required onchange="updateSubServices()">
+                            <option value="">Choose category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select Services</label>
+                        <div id="sub-services-container" class="sub-services-list">
+                            <p class="text-muted">Please select a category first</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" id="booking-name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--outline" onclick="closeBookingModal()">Cancel</button>
+                        <button type="submit" class="btn btn--primary">Send via WhatsApp</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Lavish Beauty Salon</h4>
+                    <p>Your trusted partner in beauty and wellness. Experience luxury like never before.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Instagram</a>
+                        <a href="#" target="_blank">Facebook</a>
+                        <a href="#" target="_blank">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lavish Beauty Salon. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
