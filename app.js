@@ -1,713 +1,1396 @@
-// Global state to store all data
-let appData = {
-    general: {},
-    services: {},
-    beauticians: {},
-    testimonials: {},
-    brands: {},
-    selectedServices: []
-};
+// Discount Configuration - Edit this value to apply discounts site-wide
+const DISCOUNT_PERCENT = 20; // Set to 0 for no discount, e.g., 20 for 20% discount
 
-// Sample data (simulating YAML files for demo purposes)
+// Sample Data with exact image paths from user's folder structure
 const sampleData = {
-    general: {
-        name: "Lavish Beauty Salon",
-        address: "123 MG road, Chickmagalur, 577101",
-        phone: "919019309686",
-        email: "info@lavishbeauty.in",
-        instagram: "lavishbeautyindia",
-        facebook: "lavishbeautyofficial"
+  services: [
+    {
+      name: "Facials",
+      description: "Rejuvenate your skin with our premium facial treatments",
+      icon: "fas fa-spa",
+      image: "image_assets/services/Facials/facial.jpg",
+      subServices: [
+        {
+          name: "Clean up",
+          description: "Deep cleansing treatment for refreshed, glowing skin",
+          price: 300,
+          icon: "fas fa-leaf",
+          image: "image_assets/services/Facials/Clean up/cleanup.jpeg"
+        },
+        {
+          name: "Diamond Pearl Facial",
+          description: "Luxurious diamond and pearl infused facial for radiant skin",
+          price: 1200,
+          icon: "fas fa-gem",
+          image: "image_assets/services/Facials/Diamond_Pearl Facial/diamondfacial.jpg"
+        },
+        {
+          name: "Fruit Facial",
+          description: "Natural fruit extracts for healthy, vibrant skin",
+          price: 600,
+          icon: "fas fa-apple-alt",
+          image: "image_assets/services/Facials/Fruit Facial/fruitfacial.webp"
+        },
+        {
+          name: "Gold Facial",
+          description: "24k gold treatment for ultimate luxury and anti-aging",
+          price: 900,
+          icon: "fas fa-crown",
+          image: "image_assets/services/Facials/Gold Facial/goldfacial.webp"
+        },
+        {
+          name: "Korean Facial",
+          description: "K-beauty inspired multi-step facial treatment",
+          price: 1500,
+          icon: "fas fa-heart",
+          image: "image_assets/services/Facials/Korean Facial/koreanfacial.jpg"
+        },
+        {
+          name: "O3 Bridal Facial",
+          description: "Special bridal package for your perfect day",
+          price: 1500,
+          icon: "fas fa-ring",
+          image: "image_assets/services/Facials/O3 Bridal Facial/o3bridal.jpg"
+        },
+        {
+          name: "O3 D-Tan Facial",
+          description: "Advanced de-tanning treatment for even skin tone",
+          price: 1300,
+          icon: "fas fa-sun",
+          image: "image_assets/services/Facials/O3 D-Tan Facial/detan.jpg"
+        }
+      ]
     },
-    services: {
-        categories: [
-            {
-                name: "Hair Services",
-                image: "image_assets/services/Hair Services/hair_service.jpg",
-                sub: [
-                    { name: "Haircut (Basic)", price: 200, description: "Classic trim with wash and style", image: "image_assets/brands/b488e465e52d6af99f62a369ad211fe1b36d5746.jpg" },
-                    { name: "Haircut (Advanced)", price: 400, description: "Professional restyle with blow-dry", image: "image_assets/brands/833b146d4667d34615c345cc58cb19b203f021e8.jpg" },
-                    { name: "Hair Spa (Basic)", price: 800, description: "Relaxing moisture spa treatment", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Hair Spa (Advanced)", price: 1300, description: "Intensive repair and nourishment ritual", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Head Massage (Oil)", price: 300, description: "15-minute aromatic oil massage", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
-                ]
-            },
-            {
-                name: "Hair Coloring",
-                image: "image_assets/services/Hair Coloring/hair_coloring.jpg",
-                sub: [
-                    { name: "Global Hair Color (Short)", price: 3000, description: "Ammonia-free global color transformation", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Global Hair Color (Medium)", price: 4000, description: "Medium length global color service", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Global Hair Color (Long)", price: 5000, description: "Full length global color application", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Root Touch Up", price: 1000, description: "Perfect coverage for regrowth", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Highlights per streak", price: 200, description: "Customize your hair with beautiful streaks", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" },
-                    { name: "Henna Application", price: 400, description: "Natural henna color and conditioning", image: "image_assets/brands/fdaabcb14f81a0454dda6caf096df2a6a83676c2.jpg" }
-                ]
-            },
-            {
-                name: "Hair Treatment",
-                image: "image_assets/services/Hair Treatment/Keratin-treatment-2.jpg",
-                sub: [
-                    { name: "Straightening/Smoothening (Short)", price: 3000, description: "Professional hair straightening for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Straightening/Smoothening (Medium)", price: 4000, description: "Professional hair straightening for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Straightening/Smoothening (Long)", price: 5000, description: "Professional hair straightening for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Short)", price: 4000, description: "Intensive keratin repair for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Medium)", price: 5000, description: "Intensive keratin repair for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Keratin Treatment (Long)", price: 6000, description: "Intensive keratin repair for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Short)", price: 6000, description: "Hair botox treatment for short hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Medium)", price: 7000, description: "Hair botox treatment for medium hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" },
-                    { name: "Botox Treatment (Long)", price: 8000, description: "Hair botox treatment for long hair", image: "image_assets/testimonials/d7c72362678ffbe3df73520f599674506af35d7e.jpg" }
-                ]
-            },
-            {
-                name: "Facials",
-                image: "image_assets/services/Facials/Facial.jpg",
-                sub: [
-                    { name: "Clean up", price: 300, description: "Basic facial cleanup and moisturizing", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Fruit Facial", price: 600, description: "Refreshing fruit-based facial treatment", image: "image_assets/testimonials/b4948669a138f8e43c6e50fd06ac016f8f52526a.jpg" },
-                    { name: "Gold Facial", price: 900, description: "Luxurious gold-infused facial therapy", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "Diamond/Pearl Facial", price: 1200, description: "Premium diamond and pearl facial", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "O3 D-Tan Facial", price: 1300, description: "Professional de-tan treatment", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "Korean Facial", price: 1500, description: "Korean-style multi-step facial treatment", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" },
-                    { name: "O3 Bridal Facial", price: 1500, description: "Special bridal preparation facial", image: "image_assets/brands/614ef1bf4d8406c52851ca37d102427a3cc1901a.jpg" }
-                ]
-            },
-            {
-                name: "Waxing",
-                image: "image_assets/services/Waxing/waxing.jpg",
-                sub: [
-                    { name: "Full Arms (Normal)", price: 300, description: "Complete arm waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Arms (Rica)", price: 500, description: "Premium Rica wax for arms", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Legs (Normal)", price: 400, description: "Complete leg waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Legs (Rica)", price: 600, description: "Premium Rica wax for legs", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Underarms (Normal)", price: 100, description: "Underarm waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Underarms (Rica)", price: 200, description: "Premium Rica wax for underarms", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Face (Normal)", price: 200, description: "Facial waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Face (Rica)", price: 350, description: "Premium Rica wax for face", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Body (Normal)", price: 1300, description: "Complete body waxing service", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" },
-                    { name: "Full Body (Rica)", price: 2000, description: "Premium Rica full body wax", image: "image_assets/brands/b4a0a281ae1e6dcac45147063982c5bc966c7fbd.jpg" }
-                ]
-            },
-            {
-                name: "Manicure & Pedicure",
-                image: "image_assets/services/Manicure & Pedicure/manicure.jpeg",
-                sub: [
-                    { name: "Manicure (Basic)", price: 400, description: "Complete basic manicure service", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Manicure (Advanced)", price: 700, description: "Premium advanced manicure treatment", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Pedicure (Basic)", price: 500, description: "Complete basic pedicure service", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Pedicure (Advanced)", price: 800, description: "Premium advanced pedicure treatment", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Nail Polish Application", price: 100, description: "Professional nail polish application", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" },
-                    { name: "Gel Nail Polish application", price: 300, description: "Long-lasting gel nail polish", image: "image_assets/brands/68f6a4dbccbe9145e934d4c118b91b40780decb6.jpg" }
-                ]
-            },
-            {
-                name: "Makeup",
-                image: "image_assets/services/Makeup/makeup.jpg",
-                sub: [
-                    { name: "Party Makeup", price: 1500, description: "Glamorous party makeup look", image: "image_assets/testimonials/placeholder.png" },
-                    { name: "Party Makeup (Kids)", price: 500, description: "Fun and safe makeup for kids", image: "image_assets/testimonials/placeholder.png" },
-                    { name: "HD Bridal Makeup (Basic Products)", price: 5000, description: "Beautiful bridal makeup with basic products", image: "image_assets/testimonials/placeholder.png" },
-                    { name: "HD Bridal Makeup (High-end Products)", price: 10000, description: "Luxury bridal makeup with premium products", image: "image_assets/testimonials/placeholder.png" },
-                    { name: "Saree Draping", price: 300, description: "Professional saree draping service", image: "image_assets/testimonials/placeholder.png" },
-                    { name: "Hair Styling", price: 500, description: "Professional hair styling service", image: "image_assets/testimonials/placeholder.png" }
-                ]
-            }
-        ]
+    {
+      name: "Hair Services",
+      description: "Complete hair care and styling solutions",
+      icon: "fas fa-cut",
+      image: "image_assets/services/Hair Services/hair_service.jpg",
+      subServices: [
+        {
+          name: "Haircut (Basic)",
+          description: "Professional hair cutting and styling",
+          price: 200,
+          icon: "fas fa-scissors",
+          image: "image_assets/services/Hair Services/Haircut (Basic)/haircutbasic.jpg"
+        },
+        {
+          name: "Haircut (Advanced)",
+          description: "Premium hair cutting with expert styling",
+          price: 400,
+          icon: "fas fa-magic",
+          image: "image_assets/services/Hair Services/Haircut (Advanced)/haircutadvanced.jpg"
+        },
+        {
+          name: "Hair Spa (Basic)",
+          description: "Relaxing hair treatment and conditioning",
+          price: 800,
+          icon: "fas fa-water",
+          image: "image_assets/services/Hair Services/Hair Spa (Basic)/spabasic.jpg"
+        },
+        {
+          name: "Hair Spa (Advanced)",
+          description: "Intensive hair treatment with premium products",
+          price: 1300,
+          icon: "fas fa-spa",
+          image: "image_assets/services/Hair Services/Hair Spa (Advanced)/spaadvanced.jpg"
+        },
+        {
+          name: "Head Massage (Oil)",
+          description: "Therapeutic oil massage for hair and scalp",
+          price: 300,
+          icon: "fas fa-hand-sparkles",
+          image: "image_assets/services/Hair Services/Head Massage (Oil)/massage.jpg"
+        },
+        {
+          name: "Hair wash & Blow dry",
+          description: "Deep cleansing hair wash followed by professional blow dry for a sleek, voluminous finish",
+          price: 300,
+          icon: "fas fa-hand-sparkles",
+          image: "image_assets/services/Hair Services/Hair wash/hairwash.avif"
+        }
+      ]
     },
-    beauticians: {
-        team: [
-            { name: "Nagaratna Manohar", role: "Senior Stylist", photo: "image_assets/beauticians/Nagaratna.jpg", bio: "12+ years of experience in creative cuts and modern styling techniques." }
-        ]
+    {
+      name: "Hair Coloring",
+      description: "Transform your look with professional hair coloring",
+      icon: "fas fa-palette",
+      image: "image_assets/services/Hair Coloring/hair_coloring.jpg",
+      subServices: [
+        {
+          name: "Global Hair Color (Short)",
+          description: "Full hair coloring for short hair",
+          price: 3000,
+          icon: "fas fa-brush",
+          image: "image_assets/services/Hair Coloring/Global Hair Color (Short)/colorshort.jpg"
+        },
+        {
+          name: "Global Hair Color (Medium)",
+          description: "Full hair coloring for medium length hair",
+          price: 4000,
+          icon: "fas fa-brush",
+          image: "image_assets/services/Hair Coloring/Global Hair Color (Medium)/medium.jpg"
+        },
+        {
+          name: "Global Hair Color (Long)",
+          description: "Full hair coloring for long hair",
+          price: 5000,
+          icon: "fas fa-brush",
+          image: "image_assets/services/Hair Coloring/Global Hair Color (Long)/long.jpg"
+        },
+        {
+          name: "Highlights per streak",
+          description: "Professional highlights for stunning dimension",
+          price: 200,
+          icon: "fas fa-star",
+          image: "image_assets/services/Hair Coloring/Highlights per streak/streak.jpg"
+        },
+        {
+          name: "Root Touch Up",
+          description: "Touch up your roots for a fresh look",
+          price: 1000,
+          icon: "fas fa-touch",
+          image: "image_assets/services/Hair Coloring/Root Touch Up/root.jpg"
+        },
+        {
+          name: "Henna Application",
+          description: "Natural henna coloring for healthy hair",
+          price: 400,
+          icon: "fas fa-seedling",
+          image: "image_assets/services/Hair Coloring/Henna Application/henna.jpg"
+        }
+      ]
     },
-    testimonials: {
-        reviews: [
-            { name: "Deepika Padukone", stars: 5, photo: "image_assets/testimonials/test1.jpg", message: "Absolutely loved my makeover experience! The staff is incredibly professional and the ambiance is so relaxing. Highly recommend!" },
-            { name: "Alia Bhatt", stars: 4, photo: "image_assets/testimonials/alia.jpg", message: "Great quality products and excellent service. The facial treatment left my skin glowing for weeks!" },
-            { name: "Nora Fatehi", stars: 5, photo: "image_assets/testimonials/nora.jpg", message: "The best salon in Delhi! Beautiful interiors, skilled staff, and amazing results every time." },
-            { name: "Samantha", stars: 5, photo: "image_assets/testimonials/samanta.jpg", message: "Perfect bridal makeup service! They made my special day even more beautiful. Thank you team Lavish!" }
-        ]
+    {
+      name: "Hair Treatment",
+      description: "Advanced treatments for healthy, beautiful hair",
+      icon: "fas fa-leaf",
+      image: "image_assets/services/Hair Treatment/Keratin-treatment-2.jpg",
+      subServices: [
+        {
+          name: "Keratin Treatment (Short)",
+          description: "Smooth, frizz-free hair treatment for short hair",
+          price: 4000,
+          icon: "fas fa-wind",
+          image: "image_assets/services/Hair Treatment/Keratin Treatment (Short)/short.jpg"
+        },
+        {
+          name: "Keratin Treatment (Medium)",
+          description: "Smooth, frizz-free hair treatment for medium hair",
+          price: 5000,
+          icon: "fas fa-wind",
+          image: "image_assets/services/Hair Treatment/Keratin Treatment (Medium)/medium.jpg"
+        },
+        {
+          name: "Keratin Treatment (Long)",
+          description: "Smooth, frizz-free hair treatment for long hair",
+          price: 6000,
+          icon: "fas fa-wind",
+          image: "image_assets/services/Hair Treatment/Keratin Treatment (Long)/long.jpg"
+        },
+        {
+          name: "Botox Treatment (Short)",
+          description: "Hair botox for damaged short hair restoration",
+          price: 6000,
+          icon: "fas fa-magic",
+          image: "image_assets/services/Hair Treatment/Botox Treatment (Short)/short.jpg"
+        },
+        {
+          name: "Botox Treatment (Medium)",
+          description: "Hair botox for damaged medium hair restoration",
+          price: 7000,
+          icon: "fas fa-magic",
+          image: "image_assets/services/Hair Treatment/Botox Treatment (Medium)/medium.jpg"
+        },
+        {
+          name: "Botox Treatment (Long)",
+          description: "Hair botox for damaged long hair restoration",
+          price: 8000,
+          icon: "fas fa-magic",
+          image: "image_assets/services/Hair Treatment/Botox Treatment (Long)/long.jpg"
+        },
+        {
+          name: "Straightening/Smoothening (Short)",
+          description: "Permanent hair straightening for short hair",
+          price: 3000,
+          icon: "fas fa-align-center",
+          image: "image_assets/services/Hair Treatment/Straightening_Smoothening (Short)/short.jpg"
+        },
+        {
+          name: "Straightening/Smoothening (Medium)",
+          description: "Permanent hair straightening for medium hair",
+          price: 4000,
+          icon: "fas fa-align-center",
+          image: "image_assets/services/Hair Treatment/Straightening_Smoothening (Medium)/medium.jpg"
+        },
+        {
+          name: "Straightening/Smoothening (Long)",
+          description: "Permanent hair straightening for long hair",
+          price: 5000,
+          icon: "fas fa-align-center",
+          image: "image_assets/services/Hair Treatment/Straightening_Smoothening (Long)/long.jpg"
+        }
+      ]
     },
-    brands: {
-        brands: [
-            { name: "L'Oréal Professionnel", logo: "image_assets/brands/loreal-professionnel.jpg" },
-            { name: "Lakme", logo: "image_assets/brands/Lakme.jpg" },
-            { name: "O3+", logo: "image_assets/brands/O3Plus.png" },
-            { name: "Lotus", logo: "image_assets/brands/Lotus.jpg" },
-            { name: "Sugar", logo: "image_assets/brands/sugar-cosmetics.jpg" },
-            { name: "Biotique", logo: "image_assets/brands/Biotique.jpg" }
-        ]
+    {
+      name: "Waxing",
+      description: "Professional waxing services for smooth skin",
+      icon: "fas fa-feather-alt",
+      image: "image_assets/services/Waxing/waxing.jpg",
+      subServices: [
+        {
+          name: "Face (Normal)",
+          description: "Gentle facial waxing with regular wax",
+          price: 200,
+          icon: "fas fa-smile",
+          image: "image_assets/services/Waxing/Face (Normal)/normal.jpg"
+        },
+        {
+          name: "Face (Rica)",
+          description: "Premium facial waxing with Rica wax",
+          price: 350,
+          icon: "fas fa-smile-beam",
+          image: "image_assets/services/Waxing/Face (Rica)/rica.jpg"
+        },
+        {
+          name: "Full Arms (Normal)",
+          description: "Complete arm waxing with regular wax",
+          price: 300,
+          icon: "fas fa-hand-paper",
+          image: "image_assets/services/Waxing/Full Arms (Normal)/normal.jpg"
+        },
+        {
+          name: "Full Arms (Rica)",
+          description: "Complete arm waxing with Rica wax",
+          price: 500,
+          icon: "fas fa-hand-sparkles",
+          image: "image_assets/services/Waxing/Full Arms (Rica)/rica.jpeg"
+        },
+        {
+          name: "Full Legs (Normal)",
+          description: "Complete leg waxing with regular wax",
+          price: 400,
+          icon: "fas fa-running",
+          image: "image_assets/services/Waxing/Full Legs (Normal)/leg normal.jpeg"
+        },
+        {
+          name: "Full Legs (Rica)",
+          description: "Complete leg waxing with Rica wax",
+          price: 600,
+          icon: "fas fa-fire",
+          image: "image_assets/services/Waxing/Full Legs (Rica)/leg rica.webp"
+        },
+        {
+          name: "Underarms (Normal)",
+          description: "Underarm waxing with regular wax",
+          price: 100,
+          icon: "fas fa-hand-holding-heart",
+          image: "image_assets/services/Waxing/Underarms (Normal)/normal underarm.webp"
+        },
+        {
+          name: "Underarms (Rica)",
+          description: "Underarm waxing with Rica wax",
+          price: 200,
+          icon: "fas fa-heart",
+          image: "image_assets/services/Waxing/Underarms (Rica)/rica underarm.jpeg"
+        },
+        {
+          name: "Full Body (Normal)",
+          description: "Complete body waxing with regular wax",
+          price: 1300,
+          icon: "fas fa-user",
+          image: "image_assets/services/Waxing/Full Body (Normal)/full normal.jpg"
+        },
+        {
+          name: "Full Body (Rica)",
+          description: "Complete body waxing with Rica wax",
+          price: 2000,
+          icon: "fas fa-user-check",
+          image: "image_assets/services/Waxing/Full Body (Rica)/full body.jpg"
+        },
+        {
+          name: "Stomach (Normal)",
+          description: "Stomach waxing with regular wax",
+          price: 200,
+          icon: "fas fa-hand-holding-heart",
+          image: "image_assets/services/Waxing/Stomach (Normal)/stomach.webp"
+        },
+        {
+          name: "Stomach (Rica)",
+          description: "Stomach waxing with Rica wax",
+          price: 350,
+          icon: "fas fa-heart",
+          image: "image_assets/services/Waxing/Stomach (Rica)/stomach rica.jpg"
+        },
+        {
+          name: "Back (Normal)",
+          description: "Back waxing with regular wax",
+          price: 300,
+          icon: "fas fa-user",
+          image: "image_assets/services/Waxing/Back (Normal)/back.jpeg"
+        },
+        {
+          name: "Back (Rica)",
+          description: "Back waxing with Rica wax",
+          price: 500,
+          icon: "fas fa-user-check",
+          image: "image_assets/services/Waxing/Back (Rica)/back rica.jpg"
+        }
+      ]
+    },
+    {
+      name: "Manicure & Pedicure",
+      description: "Pamper your hands and feet with professional care",
+      icon: "fas fa-hand-holding-heart",
+      image: "image_assets/services/Manicure & Pedicure/manicure.jpeg",
+      subServices: [
+        {
+          name: "Manicure (Basic)",
+          description: "Essential hand care and nail treatment",
+          price: 400,
+          icon: "fas fa-hand-sparkles",
+          image: "image_assets/services/Manicure & Pedicure/Manicure (Basic)/basic.jpg"
+        },
+        {
+          name: "Manicure (Advanced)",
+          description: "Premium hand care with spa treatment",
+          price: 700,
+          icon: "fas fa-spa",
+          image: "image_assets/services/Manicure & Pedicure/Manicure (Advanced)/adv.webp"
+        },
+        {
+          name: "Pedicure (Basic)",
+          description: "Essential foot care and nail treatment",
+          price: 500,
+          icon: "fas fa-shoe-prints",
+          image: "image_assets/services/Manicure & Pedicure/Pedicure (Basic)/normal.jpg"
+        },
+        {
+          name: "Pedicure (Advanced)",
+          description: "Premium foot care with spa treatment",
+          price: 800,
+          icon: "fas fa-walking",
+          image: "image_assets/services/Manicure & Pedicure/Pedicure (Advanced)/adv.avif"
+        },
+        {
+          name: "Nail Polish Application",
+          description: "Professional nail polish application",
+          price: 100,
+          icon: "fas fa-paint-brush",
+          image: "image_assets/services/Manicure & Pedicure/Nail Polish Application/nail polish.avif"
+        },
+        {
+          name: "Gel Nail Polish Application",
+          description: "Long-lasting gel nail polish application",
+          price: 300,
+          icon: "fas fa-gem",
+          image: "image_assets/services/Manicure & Pedicure/Gel Nail Polish application/gel.jpeg"
+        }
+      ]
+    },
+    {
+      name: "Makeup",
+      description: "Professional makeup for all occasions",
+      icon: "fas fa-palette",
+      image: "image_assets/services/Makeup/makeup.jpg",
+      subServices: [
+        {
+          name: "Party Makeup",
+          description: "Glamorous makeup for parties and events",
+          price: 1500,
+          icon: "fas fa-glass-cheers",
+          image: "image_assets/services/Makeup/Party Makeup/party.jpeg"
+        },
+        {
+          name: "Party Makeup (Kids)",
+          description: "Safe and fun makeup for children's parties",
+          price: 500,
+          icon: "fas fa-child",
+          image: "image_assets/services/Makeup/Party Makeup (Kids)/kids.webp"
+        },
+        {
+          name: "HD Bridal Makeup (Basic Products)",
+          description: "Professional bridal makeup with basic products",
+          price: 5000,
+          icon: "fas fa-ring",
+          image: "image_assets/services/Makeup/HD Bridal Makeup (Basic Products)/hd basic.jpg"
+        },
+        {
+          name: "HD Bridal Makeup (High-end Products)",
+          description: "Luxury bridal makeup with premium products",
+          price: 10000,
+          icon: "fas fa-crown",
+          image: "image_assets/services/Makeup/HD Bridal Makeup (High-end Products)/hd advanced.jpg"
+        },
+        {
+          name: "Hair Styling",
+          description: "Professional hair styling for special occasions",
+          price: 500,
+          icon: "fas fa-magic",
+          image: "image_assets/services/Makeup/Hair Styling/hair style.png"
+        },
+        {
+          name: "Saree Draping",
+          description: "Professional saree draping service",
+          price: 300,
+          icon: "fas fa-tshirt",
+          image: "image_assets/services/Makeup/Saree Draping/saree.webp"
+        }
+      ]
+    },
+    {
+      name: "Threading",
+      description: "Precise eyebrow shaping and facial hair removal",
+      icon: "fas fa-palette",
+      image: "image_assets/services/Threading/main.jpg",
+      subServices: [
+        {
+          name: "Eyebrows/Cheeks",
+          description: "Defined eyebrows and smooth cheeks for a clean look",
+          price: 50,
+          icon: "fas fa-glass-cheers",
+          image: "image_assets/services/Threading/Eyebrow/eyebrow.jpg"
+        },
+        {
+          name: "UpperLips/Forehead/Chin",
+          description: "Gentle hair removal for a polished and fresh face",
+          price: 30,
+          icon: "fas fa-child",
+          image: "image_assets/services/Threading/Lips/lip.webp"
+        },
+        {
+          name: "Full Face",
+          description: "Complete facial hair removal for a smooth, radiant finish",
+          price: 150,
+          icon: "fas fa-ring",
+          image: "image_assets/services/Threading/Face/face.png"
+        }
+      ]
     }
+  ],
+  
+  gallery: [
+    { image: "image_assets/galleryImages/salon1.jpg", alt: "Salon interior 1" },
+    { image: "image_assets/galleryImages/salon2.jpg", alt: "Salon interior 2" },
+    { image: "image_assets/galleryImages/salon3.jpg", alt: "Salon interior 3" },
+    { image: "image_assets/galleryImages/salon4.jpg", alt: "Salon interior 4" },
+    { image: "image_assets/galleryImages/salon5.jpg", alt: "Salon interior 5" },
+    { image: "image_assets/galleryImages/salon6.jpg", alt: "Salon interior 6" },
+    { image: "image_assets/galleryImages/salon7.jpg", alt: "Salon interior 7" },
+    { image: "image_assets/galleryImages/salon8.jpg", alt: "Salon interior 8" }
+  ],
+  
+  testimonials: [
+    {
+      name: "Revathi Gowda",
+      rating: 5,
+      content: "Absolutely love the service! The staff is professional and the ambiance is so relaxing. My facial treatment was amazing!",
+      image: "image_assets/testimonials/rev.png"
+    },
+    {
+      name: "Thanmai Gowda",
+      rating: 5,
+      content: "The bridal makeup service was exceptional. I felt like a princess on my wedding day. Highly recommend Lavishh!",
+      image: "image_assets/testimonials/thanmai.png"
+    },
+    {
+      name: "Sumana Nagaraj",
+      rating: 5,
+      content: "Best salon experience ever! The hair treatment made my hair so soft and shiny. Will definitely be coming back!",
+      image: "image_assets/testimonials/sumana.png"
+    },
+    {
+      name: "Abhijna",
+      rating: 5,
+      content: "Professional service with a personal touch. The staff really knows their craft and uses premium products.",
+      image: "image_assets/testimonials/abhi.png"
+    }
+  ],
+
+  beauticians: [
+    { 
+      name: "Nagaratna Manohar", 
+      role: "Senior Stylist", 
+      photo: "image_assets/beauticians/Nagaratna.jpg", 
+      bio: "12+ years of experience in creative cuts and modern styling techniques." 
+    }
+  ],
+  
+  brands: [
+    { name: "Biotique", logo: "image_assets/brands/Biotique.jpg" },
+    { name: "Lakme", logo: "image_assets/brands/Lakme.jpg" },
+    { name: "L'Oreal Professional", logo: "image_assets/brands/loreal-professionnel.jpg" },
+    { name: "Lotus", logo: "image_assets/brands/Lotus.jpg" },
+    { name: "O3 Plus", logo: "image_assets/brands/O3Plus.png" },
+    { name: "Sugar Cosmetics", logo: "image_assets/brands/sugar-cosmetics.jpg" }
+  ]
 };
 
-// Gallery images (simulating dynamic loading)
-const galleryImages = [
-    "image_assets/galleryImages/salon1.jpg",
-    "image_assets/galleryImages/salon2.jpg",
-    "image_assets/galleryImages/salon3.jpg",
-    "image_assets/galleryImages/salon4.jpg",
-    "image_assets/galleryImages/salon5.jpg",
-    "image_assets/galleryImages/salon6.jpg",
-    "image_assets/galleryImages/salon7.jpg",
-    "image_assets/galleryImages/salon8.jpg"
-];
+/* -------------------------------------------------------------------------
+   GLOBAL STATE
+------------------------------------------------------------------------- */
+let currentPage = 'main';
+let autoScrollIntervals = [];
 
-// Utility function to simulate loading YAML data
-async function loadYAML(dataKey) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return sampleData[dataKey];
-}
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', async function() {
-    // Hide welcome overlay after animation
-    setTimeout(() => {
-        const overlay = document.getElementById('welcome-overlay');
-        if (overlay) {
-            overlay.style.display = 'none';
-        }
-    }, 2500);
-
-    // Load all data
-    try {
-        console.log('Loading application data...');
-        
-        appData.general = await loadYAML('general');
-        appData.services = await loadYAML('services');
-        appData.beauticians = await loadYAML('beauticians');
-        appData.testimonials = await loadYAML('testimonials');
-        appData.brands = await loadYAML('brands');
-
-        console.log('Data loaded successfully:', appData);
-
-        // Render all sections
-        renderGeneral();
-        renderServices();
-        renderGallery();
-        renderTestimonials();
-        renderTeam();
-        renderBrands();
-        initBooking();
-
-        // Initialize AOS animations
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                once: true,
-                duration: 600,
-                easing: 'ease-in-out',
-                offset: 100
-            });
-        }
-
-    } catch (error) {
-        console.error('Error loading data:', error);
-        showError('Failed to load application data');
-    }
-
-    // Initialize navigation
-    initNavigation();
-    
-    // Set minimum date for booking to today
-    const today = new Date().toISOString().split('T')[0];
-    const bookingDate = document.getElementById('booking-date');
-    if (bookingDate) {
-        bookingDate.min = today;
-    }
+/* -------------------------------------------------------------------------
+   INITIALISE APP
+------------------------------------------------------------------------- */
+window.addEventListener('DOMContentLoaded', () => {
+  initialiseApp();
 });
 
-// Navigation functionality
-function initNavigation() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    // Mobile menu toggle
-    hamburger?.addEventListener('click', () => {
-        navMenu?.classList.toggle('active');
+function initialiseApp() {
+  // Initialize AOS animations
+  if (typeof AOS !== 'undefined') {
+    AOS.init({ 
+      duration: 1000, 
+      once: true, 
+      offset: 100,
+      easing: 'ease-out-cubic'
     });
+  }
 
-    // Close mobile menu when clicking on links
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu?.classList.remove('active');
-        });
-    });
-
-    // Smooth scrolling for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70; // Account for fixed nav
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Add scroll effect to navbar
-    window.addEventListener('scroll', () => {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 100) {
-            navbar?.classList.add('scrolled');
-        } else {
-            navbar?.classList.remove('scrolled');
-        }
-    });
-}
-
-// Render general information
-function renderGeneral() {
-    console.log('Rendering general information...');
-    
-    const contactContainer = document.getElementById('contact-container');
-    const contactLoading = document.getElementById('contact-loading');
-    
-    if (contactContainer && contactLoading && appData.general) {
-        contactContainer.innerHTML = `
-            <div class="contact-info" data-aos="fade-up">
-                <h3>Visit Our Salon</h3>
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <span class="contact-text">${appData.general.address}</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📞</span>
-                    <span class="contact-text">+${appData.general.phone}</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">✉️</span>
-                    <span class="contact-text">${appData.general.email}</span>
-                </div>
-                <div class="social-links">
-                    <a href="https://instagram.com/${appData.general.instagram}" target="_blank">Instagram</a>
-                    <a href="https://facebook.com/${appData.general.facebook}" target="_blank">Facebook</a>
-                    <a href="https://wa.me/${appData.general.phone}" target="_blank">WhatsApp</a>
-                </div>
-            </div>
-            <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
-                <h3>Business Hours</h3>
-                <div class="contact-item">
-                    <span class="contact-text">Monday - Saturday: 9:00 AM - 8:00 PM</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-text">Sunday: 10:00 AM - 6:00 PM</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-text">Walk-ins welcome, appointments preferred</span>
-                </div>
-            </div>
-        `;
-        
-        contactLoading.style.display = 'none';
-        contactContainer.style.display = 'grid';
-        console.log('General information rendered successfully');
+  // Remove welcome overlay after animation
+  setTimeout(() => {
+    const overlay = document.getElementById('welcome-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
     }
+  }, 2500);
+
+  // Setup navigation
+  setupNavigation();
+
+  // Check URL parameters to show appropriate page
+  const params = new URLSearchParams(location.search);
+  const cat = params.get('cat');
+  if (cat !== null && !isNaN(cat)) {
+    showCategoryPage(parseInt(cat));
+  } else {
+    showMainPage();
+  }
+
+  // Setup scroll interaction handlers after short delay
+  setTimeout(setupScrollInteractionHandlers, 1000);
+  
+  // Setup service search
+  setupServiceSearch();
+  
+  // Preload critical images
+  preloadCriticalImages();
 }
 
-// Render services section
+/* -------------------------------------------------------------------------
+   NAVIGATION FUNCTIONS
+------------------------------------------------------------------------- */
+function setupNavigation() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  // Mobile menu toggle
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  }
+
+  // Navigation links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      
+      // Close mobile menu
+      if (navMenu) {
+        navMenu.classList.remove('active');
+      }
+      
+      // Scroll to section
+      scrollToSection(targetId);
+    });
+  });
+
+  const homeLink = document.getElementById('nav-home');
+  if (homeLink) {
+    homeLink.addEventListener('click', e => {
+      e.preventDefault();                     // prevent default scrolling or reload
+      history.pushState({}, '', location.pathname);
+      showMainPage();                         // switch back to services overview
+    });
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (navMenu && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+      navMenu.classList.remove('active');
+    }
+  });
+}
+
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const navbar = document.querySelector('.navbar');
+    const offset = navbar ? navbar.offsetHeight + 20 : 80;
+    const elementPosition = element.offsetTop - offset;
+    
+    window.scrollTo({
+      top: elementPosition,
+      behavior: 'smooth'
+    });
+  }
+}
+
+/* -------------------------------------------------------------------------
+   PAGE VIEW FUNCTIONS
+------------------------------------------------------------------------- */
+function showMainPage() {
+  currentPage = 'main';
+  document.getElementById('main-page').classList.remove('hidden');
+  document.getElementById('category-page').classList.add('hidden');
+
+  // Render all sections
+  renderServices();
+  renderGallery();
+  renderTestimonials();
+  renderTeam()
+  renderBrands();
+  initBooking();
+
+  // Start auto-scroll after rendering
+  setTimeout(startAutoScroll, 500);
+
+  // Set minimum date for booking to today
+  const today = new Date().toISOString().split('T')[0];
+  const bookingDate = document.getElementById('booking-date');
+  if (bookingDate) {
+      bookingDate.min = today;
+  }
+}
+
+function showCategoryPage(categoryIndex) {
+  currentPage = 'category';
+  document.getElementById('main-page').classList.add('hidden');
+  document.getElementById('category-page').classList.remove('hidden');
+
+  // Stop auto-scroll on category page
+  clearAutoScroll();
+  
+  // Render category details
+  renderCategoryDetail(categoryIndex);
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Setup back button
+  const backBtn = document.getElementById('back-btn');
+  if (backBtn) {
+    backBtn.onclick = () => {
+      history.pushState({}, '', location.pathname);
+      showMainPage();
+    };
+  }
+}
+
+/* -------------------------------------------------------------------------
+   PRICE CALCULATION
+------------------------------------------------------------------------- */
+function calculatePrice(originalPrice) {
+  if (DISCOUNT_PERCENT <= 0) return originalPrice;
+  return Math.round(originalPrice * (1 - DISCOUNT_PERCENT / 100));
+}
+
+function formatPrice(originalPrice) {
+  if (DISCOUNT_PERCENT > 0) {
+    const discountedPrice = calculatePrice(originalPrice);
+    return `<span class="original-price">₹${originalPrice}</span>₹${discountedPrice}`;
+  }
+  return `₹${originalPrice}`;
+}
+
+/* -------------------------------------------------------------------------
+   RENDER FUNCTIONS
+------------------------------------------------------------------------- */
 function renderServices() {
-    console.log('Rendering services...');
-    
-    const servicesContainer = document.getElementById('services-container');
-    const servicesLoading = document.getElementById('services-loading');
-    
-    if (servicesContainer && servicesLoading && appData.services?.categories) {
-        const servicesHTML = appData.services.categories.map((category, index) => `
-            <div class="service-category" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <img src="${category.image}" alt="${category.name}" class="service-category-image" loading="lazy">
-                <div class="service-category-content">
-                    <h3 class="service-category-title">${category.name}</h3>
-                    <div class="service-subcategories" id="subcategories-${index}">
-                        ${category.sub.map(subService => `
-                            <div class="service-item">
-                                <div class="service-item-info">
-                                    <h4>${subService.name}</h4>
-                                    <p>${subService.description}</p>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 16px;">
-                                    <span class="service-price">₹${subService.price}</span>
-                                    <button class="service-book-btn" onclick="addToBooking('${category.name}', '${subService.name}', ${subService.price})">
-                                        Book
-                                    </button>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-        
-        servicesContainer.innerHTML = servicesHTML;
-        
-        // Add click handlers for category expansion
-        appData.services.categories.forEach((category, index) => {
-            const categoryElement = servicesContainer.children[index];
-            const subcategoriesElement = document.getElementById(`subcategories-${index}`);
-            
-            if (categoryElement && subcategoriesElement) {
-                categoryElement.addEventListener('click', (e) => {
-                    // Don't toggle if clicking on book button
-                    if (e.target.classList.contains('service-book-btn')) return;
-                    
-                    subcategoriesElement.classList.toggle('expanded');
-                });
-            }
-        });
-        
-        servicesLoading.style.display = 'none';
-        servicesContainer.style.display = 'grid';
-        console.log('Services rendered successfully');
-    }
+  const grid = document.getElementById('services-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = '';
+
+  sampleData.services.forEach((service, index) => {
+    const serviceCard = document.createElement('div');
+    serviceCard.className = 'service-card';
+    serviceCard.setAttribute('data-aos', 'fade-up');
+    serviceCard.setAttribute('data-aos-delay', index * 100);
+
+    serviceCard.innerHTML = `
+    <a href="?cat=${index}" class="service-link">
+      <div class="service-image-wrapper">
+        <img src="${service.image}" alt="${service.name}" class="service-image">
+      </div>
+      <div class="service-info">
+        <h3>${service.name}</h3>
+        <p>${service.description}</p>
+      </div>
+    </a>`;
+
+    // Add click handler for SPA navigation
+    const link = serviceCard.querySelector('.service-link');
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.pushState({}, '', `?cat=${index}`);
+      showCategoryPage(index);
+    });
+
+    grid.appendChild(serviceCard);
+  });
 }
 
-// Render gallery section
+function renderCategoryDetail(categoryIndex) {
+  const category = sampleData.services[categoryIndex];
+  if (!category) return;
+
+  // Set category header
+  document.getElementById('category-title').textContent = category.name;
+  document.getElementById('category-description').textContent = category.description;
+  
+  // Set category hero image
+  const heroImage = document.getElementById('category-hero-image');
+  heroImage.innerHTML = `<img src="${category.image}" alt="${category.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                         <div style="display:none; width:100%; height:100%; background:var(--color-bg-3); align-items:center; justify-content:center; font-size:3rem; color:var(--color-primary);">
+                           <i class="${category.icon}"></i>
+                         </div>`;
+
+  // Render sub-services
+  const grid = document.getElementById('subcategory-grid');
+  grid.innerHTML = '';
+
+  category.subServices.forEach((subService, index) => {
+    const subCard = document.createElement('div');
+    subCard.className = 'subcategory-card';
+    subCard.setAttribute('data-aos', 'fade-up');
+    subCard.setAttribute('data-aos-delay', index * 100);
+
+    subCard.innerHTML = `
+      <div class="subcategory-image">
+        <img src="${subService.image}" alt="${subService.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="display:none; width:100%; height:100%; background:var(--color-bg-4); align-items:center; justify-content:center; font-size:2rem; color:var(--color-primary);">
+          <i class="${subService.icon}"></i>
+        </div>
+      </div>
+      <div class="subcategory-content">
+        <h3>${subService.name}</h3>
+        <p>${subService.description}</p>
+        <div class="subcategory-price">${formatPrice(subService.price)}</div>
+        <button class="btn btn--primary" onclick="bookService('${subService.name}')">
+          <i class="fas fa-calendar-alt"></i>
+          Book Now
+        </button>
+      </div>
+    `;
+
+    grid.appendChild(subCard);
+  });
+}
+
 function renderGallery() {
-    console.log('Rendering gallery...');
-    
-    const galleryContainer = document.getElementById('gallery-container');
-    const galleryLoading = document.getElementById('gallery-loading');
-    
-    if (galleryContainer && galleryLoading && galleryImages.length > 0) {
-        const galleryHTML = galleryImages.map((image, index) => `
-            <div class="gallery-item" data-aos="fade-up" data-aos-delay="${index * 50}">
-                <img src="${image}" alt="Salon Gallery Image ${index + 1}" loading="lazy">
-            </div>
-        `).join('');
-        
-        galleryContainer.innerHTML = galleryHTML;
-        
-        // Initialize lightGallery if available
-        if (typeof lightGallery !== 'undefined') {
-            lightGallery(galleryContainer, {
-                selector: '.gallery-item',
-                plugins: [],
-                speed: 500,
-                download: false
-            });
-        }
-        
-        galleryLoading.style.display = 'none';
-        galleryContainer.style.display = 'grid';
-        console.log('Gallery rendered successfully with', galleryImages.length, 'images');
-    } else {
-        console.error('Gallery rendering failed - missing elements or images');
-    }
+  const container = document.getElementById('gallery-scroll');
+  if (!container) return;
+  
+  container.innerHTML = '';
+
+  sampleData.gallery.forEach((item, index) => {
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item';
+    galleryItem.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy">`;
+    container.appendChild(galleryItem);
+  });
 }
 
-// Render testimonials section
 function renderTestimonials() {
-    console.log('Rendering testimonials...');
-    
-    const testimonialsContainer = document.getElementById('testimonials-container');
-    const testimonialsLoading = document.getElementById('testimonials-loading');
-    
-    if (testimonialsContainer && testimonialsLoading && appData.testimonials?.reviews) {
-        const testimonialsHTML = appData.testimonials.reviews.map((review, index) => `
-            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <img src="${review.photo}" alt="${review.name}" class="testimonial-photo" loading="lazy">
-                <div class="testimonial-stars">
-                    ${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}
-                </div>
-                <p class="testimonial-message">"${review.message}"</p>
-                <h4 class="testimonial-name">- ${review.name}</h4>
-            </div>
-        `).join('');
-        
-        testimonialsContainer.innerHTML = testimonialsHTML;
-        
-        testimonialsLoading.style.display = 'none';
-        testimonialsContainer.style.display = 'grid';
-        console.log('Testimonials rendered successfully');
-    }
+  const container = document.getElementById('testimonials-scroll');
+  if (!container) return;
+  
+  container.innerHTML = '';
+
+  sampleData.testimonials.forEach((testimonial) => {
+    const testimonialCard = document.createElement('div');
+    testimonialCard.className = 'testimonial-card';
+    testimonialCard.innerHTML = `
+      <div class="testimonial-content">"${testimonial.content}"</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">
+          <img src="${testimonial.image}" alt="${testimonial.name}" loading="lazy">
+        </div>
+        <div class="testimonial-info">
+          <h4>${testimonial.name}</h4>
+          <div class="testimonial-rating">${'★'.repeat(testimonial.rating)}</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(testimonialCard);
+  });
 }
 
-// Render team section
 function renderTeam() {
-    console.log('Rendering team...');
-    
-    const teamContainer = document.getElementById('team-container');
-    const teamLoading = document.getElementById('team-loading');
-    
-    if (teamContainer && teamLoading && appData.beauticians?.team) {
-        const teamHTML = appData.beauticians.team.map((member, index) => `
-            <div class="team-member" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <img src="${member.photo}" alt="${member.name}" class="team-photo" loading="lazy">
-                <div class="team-info">
-                    <h3 class="team-name">${member.name}</h3>
-                    <p class="team-role">${member.role}</p>
-                    <p class="team-bio">${member.bio}</p>
-                </div>
-            </div>
-        `).join('');
-        
-        teamContainer.innerHTML = teamHTML;
-        
-        teamLoading.style.display = 'none';
-        teamContainer.style.display = 'grid';
-        console.log('Team rendered successfully with', appData.beauticians.team.length, 'members');
-    } else {
-        console.error('Team rendering failed - missing elements or data');
-    }
+  const teamContainer = document.getElementById('team-container');
+  const teamLoading = document.getElementById('team-loading');
+  // Hide loading spinner and show team grid
+  if (teamLoading) teamLoading.style.display = 'none';
+  if (teamContainer) teamContainer.style.display = 'grid';
+
+  teamContainer.innerHTML = ''; // clear previous, if any
+
+  if (sampleData.beauticians && sampleData.beauticians.length > 0) {
+    sampleData.beauticians.forEach((member, index) => {
+      const card = document.createElement('div');
+      card.className = 'team-card';
+      card.setAttribute('data-aos', 'fade-up');
+      card.setAttribute('data-aos-delay', index * 100);
+      card.innerHTML = `
+        <div class="team-photo-wrapper">
+          <img src="${member.photo}" alt="${member.name}" class="team-photo" />
+        </div>
+        <h3 class="team-member-name">${member.name}</h3>
+        <p class="team-member-role">${member.role}</p>
+        <p class="team-member-bio">${member.bio}</p>
+      `;
+      teamContainer.appendChild(card);
+    });
+  } else {
+    teamContainer.innerHTML = '<p>No team members found.</p>';
+  }
 }
 
-// Render brand partners section
+
+
 function renderBrands() {
-    console.log('Rendering brands...');
-    
-    const partnersContainer = document.getElementById('partners-container');
-    const partnersLoading = document.getElementById('partners-loading');
-    
-    if (partnersContainer && partnersLoading && appData.brands?.brands) {
-        const partnersHTML = appData.brands.brands.map((brand, index) => `
-            <div class="partner-logo" data-aos="fade-up" data-aos-delay="${index * 50}">
-                <img src="${brand.logo}" alt="${brand.name}" loading="lazy">
-            </div>
-        `).join('');
-        
-        partnersContainer.innerHTML = partnersHTML;
-        
-        partnersLoading.style.display = 'none';
-        partnersContainer.style.display = 'grid';
-        console.log('Brands rendered successfully with', appData.brands.brands.length, 'partners');
-    } else {
-        console.error('Brands rendering failed - missing elements or data');
-    }
+  const container = document.getElementById('brands-scroll');
+  if (!container) return;
+  
+  container.innerHTML = '';
+
+  sampleData.brands.forEach((brand) => {
+    const brandItem = document.createElement('div');
+    brandItem.className = 'brand-item';
+    brandItem.innerHTML = `<img src="${brand.logo}" alt="${brand.name}" loading="lazy">`;
+    container.appendChild(brandItem);
+  });
 }
+
+/* -------------------------------------------------------------------------
+   AUTO-SCROLL FUNCTIONALITY
+------------------------------------------------------------------------- */
+function startAutoScroll() {
+  clearAutoScroll();
+  if (currentPage !== 'main') return;
+
+  const createAutoScroll = (element, scrollStep, interval) => {
+    if (!element) return;
+    
+    const scrollInterval = setInterval(() => {
+      if (currentPage !== 'main') {
+        clearInterval(scrollInterval);
+        return;
+      }
+      
+      const maxScroll = element.scrollWidth - element.clientWidth;
+      
+      if (element.scrollLeft >= maxScroll - 5) {
+        element.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        element.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    }, interval);
+    
+    autoScrollIntervals.push(scrollInterval);
+  };
+
+  // Auto-scroll for different sections
+  const gallery = document.getElementById('gallery-scroll');
+  const testimonials = document.getElementById('testimonials-scroll');
+  const brands = document.getElementById('brands-scroll');
+
+  if (gallery) createAutoScroll(gallery, 420, 3000);      // Gallery: scroll by 420px every 3s
+  if (testimonials) createAutoScroll(testimonials, 424, 4000);  // Testimonials: scroll by 424px every 4s  
+  if (brands) createAutoScroll(brands, 200, 2500);        // Brands: scroll by 200px every 2.5s
+}
+
+function clearAutoScroll() {
+  autoScrollIntervals.forEach(interval => clearInterval(interval));
+  autoScrollIntervals = [];
+}
+
+function setupScrollInteractionHandlers() {
+  const scrollContainers = ['gallery-scroll', 'testimonials-scroll', 'brands-scroll'];
+  
+  scrollContainers.forEach(id => {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    // Pause auto-scroll on hover/touch
+    ['mouseenter', 'touchstart'].forEach(event => {
+      element.addEventListener(event, clearAutoScroll);
+    });
+
+    // Resume auto-scroll when not hovering/touching
+    ['mouseleave', 'touchend'].forEach(event => {
+      element.addEventListener(event, () => {
+        setTimeout(startAutoScroll, 1000);
+      });
+    });
+  });
+}
+
+/* -------------------------------------------------------------------------
+   BOOKING FUNCTIONS
+------------------------------------------------------------------------- */
 
 // Initialize booking functionality
 function initBooking() {
-    console.log('Initializing booking...');
-    
-    const categorySelect = document.getElementById('booking-category');
-    
-    if (categorySelect && appData.services?.categories) {
-        // Clear existing options first
-        categorySelect.innerHTML = '<option value="">Choose category</option>';
-        
-        // Populate category dropdown
-        appData.services.categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.name;
-            option.textContent = category.name;
-            categorySelect.appendChild(option);
-        });
+  console.log('Initializing booking...');
+  
+  try {
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    const bookingDate = document.getElementById('booking-date');
+    if (bookingDate) {
+      bookingDate.min = today;
     }
     
-    // Handle form submission
+    // Populate category dropdown
+    const categorySelect = document.getElementById('booking-category');
+    if (categorySelect && sampleData.services) {
+      categorySelect.innerHTML = '<option value="">Select a category</option>';
+      
+      sampleData.services.forEach(service => {
+        const option = document.createElement('option');
+        option.value = service.name;
+        option.textContent = service.name;
+        categorySelect.appendChild(option);
+      });
+    }
+    
+    // Add event listeners
+    if (categorySelect) {
+      categorySelect.addEventListener('change', updateSubServices);
+    }
+    
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
-        bookingForm.addEventListener('submit', handleBookingSubmit);
+      bookingForm.addEventListener('submit', handleBookingSubmit);
+    }
+    
+    // Close modal when clicking overlay
+    const modal = document.getElementById('booking-modal');
+    if (modal) {
+      const overlay = modal.querySelector('.booking-modal-overlay');
+      if (overlay) {
+        overlay.addEventListener('click', closeBookingModal);
+      }
     }
     
     console.log('Booking initialized successfully');
+  } catch (error) {
+    console.error('Error initializing booking:', error);
+  }
 }
 
-// Handle booking form submission
-function handleBookingSubmit(e) {
-    e.preventDefault();
-    
-    const date = document.getElementById('booking-date').value;
-    const time = document.getElementById('booking-time').value;
-    const name = document.getElementById('booking-name').value;
-    
-    // Get selected services
-    const selectedServices = [];
-    const checkboxes = document.querySelectorAll('input[name="services"]:checked');
-    checkboxes.forEach(checkbox => {
-        selectedServices.push({
-            name: checkbox.value,
-            price: parseInt(checkbox.dataset.price)
-        });
-    });
-    
-    if (selectedServices.length === 0) {
-        alert('Please select at least one service.');
-        return;
-    }
-    
-    // Calculate total
-    const total = selectedServices.reduce((sum, service) => sum + service.price, 0);
-    
-    // Construct WhatsApp message
-    const servicesList = selectedServices.map(service => 
-        `• ${service.name} - ₹${service.price}`
-    ).join('\n');
-    
-    const message = `Hello! I would like to book an appointment at Lavish Beauty Salon.
-
-Name: ${name}
-Date: ${date}
-Time: ${time}
-
-Services:
-${servicesList}
-
-Total: ₹${total}
-
-Please confirm my appointment. Thank you!`;
-    
-    // Open WhatsApp
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${appData.general.phone}?text=${encodedMessage}`;
-    window.open(whatsappURL, '_blank');
-    
-    // Close modal and reset form
-    closeBookingModal();
-    e.target.reset();
-    appData.selectedServices = [];
-}
+// Global variable to store all selected services
+let selectedServices = new Map(); // category -> Set of selected services
 
 // Update sub-services based on selected category
 function updateSubServices() {
-    const categorySelect = document.getElementById('booking-category');
-    const subServicesContainer = document.getElementById('sub-services-container');
+  const categorySelect = document.getElementById('booking-category');
+  const subServicesContainer = document.getElementById('sub-services-container');
+  const bookingSummary = document.getElementById('booking-summary');
+  
+  const selectedCategory = categorySelect.value;
+  
+  if (!selectedCategory) {
+    subServicesContainer.innerHTML = '<p class="text-muted">Please select a category to view available services</p>';
+    return;
+  }
+  
+  const category = sampleData.services.find(cat => cat.name === selectedCategory);
+  
+  if (category && category.subServices) {
+    // Get previously selected services for this category
+    const previouslySelected = selectedServices.get(selectedCategory) || new Set();
     
-    const selectedCategory = categorySelect.value;
+    const subServicesHTML = category.subServices.map(service => {
+      const isChecked = previouslySelected.has(service.name);
+      return `
+        <div class="service-checkbox-item">
+          <label>
+            <input type="checkbox" 
+                   name="services" 
+                   value="${service.name}" 
+                   data-price="${service.price}" 
+                   data-category="${selectedCategory}"
+                   ${isChecked ? 'checked' : ''}
+                   onchange="toggleService('${selectedCategory}', '${service.name}', ${service.price})">
+            <span class="service-name">${service.name}</span>
+          </label>
+          <span class="service-price">₹${service.price}</span>
+        </div>
+      `;
+    }).join('');
     
-    if (!selectedCategory) {
-        subServicesContainer.innerHTML = '<p class="text-muted">Please select a category first</p>';
-        return;
-    }
-    
-    const category = appData.services.categories.find(cat => cat.name === selectedCategory);
-    
-    if (category) {
-        const subServicesHTML = category.sub.map(service => `
-            <div class="sub-service-item">
-                <input type="checkbox" 
-                       name="services" 
-                       value="${service.name}" 
-                       data-price="${service.price}" 
-                       id="service-${service.name.replace(/\s+/g, '-').toLowerCase()}">
-                <label for="service-${service.name.replace(/\s+/g, '-').toLowerCase()}" class="sub-service-name">
-                    ${service.name}
-                </label>
-                <span class="sub-service-price">₹${service.price}</span>
-            </div>
-        `).join('');
-        
-        subServicesContainer.innerHTML = subServicesHTML;
-    }
+    subServicesContainer.innerHTML = subServicesHTML;
+    updateBookingSummary();
+  }
 }
 
-// Add service to booking (called from service cards)
-function addToBooking(categoryName, serviceName, price) {
-    // Open booking modal
-    openBookingModal();
+// Toggle service selection
+function toggleService(category, serviceName, price) {
+  if (!selectedServices.has(category)) {
+    selectedServices.set(category, new Set());
+  }
+  
+  const categoryServices = selectedServices.get(category);
+  const checkbox = document.querySelector(`input[value="${serviceName}"][data-category="${category}"]`);
+  
+  if (checkbox.checked) {
+    categoryServices.add(serviceName);
+  } else {
+    categoryServices.delete(serviceName);
+  }
+  
+  updateBookingSummary();
+}
+
+// Update booking summary
+function updateBookingSummary() {
+  const summaryContent = document.getElementById('summary-content');
+  const totalAmount = document.getElementById('total-amount');
+  const bookingSummary = document.getElementById('booking-summary');
+  
+  // Collect all selected services from all categories
+  let total = 0;
+  const summaryItems = [];
+  
+  selectedServices.forEach((services, category) => {
+    services.forEach(serviceName => {
+      // Find the service price from the data
+      const categoryData = sampleData.services.find(cat => cat.name === category);
+      const serviceData = categoryData?.subServices.find(service => service.name === serviceName);
+      
+      if (serviceData) {
+        total += serviceData.price;
+        summaryItems.push({ 
+          name: serviceName, 
+          price: serviceData.price,
+          category: category 
+        });
+      }
+    });
+  });
+  
+  if (summaryItems.length === 0) {
+    bookingSummary.style.display = 'none';
+    return;
+  }
+  
+  const summaryHTML = summaryItems.map(item => `
+    <div class="summary-item">
+      <span>${item.name} <small style="color: var(--color-text-secondary);">(${item.category})</small></span>
+      <span>₹${item.price}</span>
+    </div>
+  `).join('');
+  
+  summaryContent.innerHTML = summaryHTML;
+  totalAmount.textContent = total;
+  bookingSummary.style.display = 'block';
+}
+
+// Handle booking form submission
+async function handleBookingSubmit(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('submitBtn');
+  const originalText = submitBtn.innerHTML;
+  
+  // Show loading state
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  submitBtn.disabled = true;
+  
+  try {
+    const formData = new FormData(e.target);
+    const name = formData.get('booking-name');
+    const contact = formData.get('booking-contact');
+    const date = formData.get('booking-date');
+    const time = formData.get('booking-time');
+    const category = formData.get('booking-category');
     
-    // Set the category
-    const categorySelect = document.getElementById('booking-category');
-    categorySelect.value = categoryName;
+    // Get selected services from all categories
+    const allSelectedServices = [];
+    let total = 0;
     
-    // Update sub-services
-    updateSubServices();
-    
-    // Pre-select the service
-    setTimeout(() => {
-        const serviceCheckbox = document.querySelector(`input[value="${serviceName}"]`);
-        if (serviceCheckbox) {
-            serviceCheckbox.checked = true;
+    selectedServices.forEach((services, category) => {
+      services.forEach(serviceName => {
+        const categoryData = sampleData.services.find(cat => cat.name === category);
+        const serviceData = categoryData?.subServices.find(service => service.name === serviceName);
+        
+        if (serviceData) {
+          allSelectedServices.push({
+            name: serviceName,
+            price: serviceData.price,
+            category: category
+          });
+          total += serviceData.price;
         }
-    }, 100);
+      });
+    });
+    
+    if (allSelectedServices.length === 0) {
+      showBookingResult('Please select at least one service.', 'error');
+      return;
+    }
+    
+    // Prepare booking data
+    const bookingData = {
+      name: name,
+      contact: contact,
+      date: date,
+      time: time,
+      services: allSelectedServices,
+      total: total
+    };
+    
+    // Send WhatsApp message
+    sendWhatsAppMessage(bookingData);
+    
+    // Show success message
+    showBookingResult('WhatsApp message sent successfully! Please check your WhatsApp for confirmation.', 'success');
+    
+    // Reset form and close modal after delay
+    setTimeout(() => {
+      e.target.reset();
+      closeBookingModal();
+      document.getElementById('booking-summary').style.display = 'none';
+    }, 3000);
+    
+  } catch (error) {
+    console.error('Booking error:', error);
+    showBookingResult('There was an error sending your booking. Please try again.', 'error');
+  } finally {
+    // Reset button state
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+  }
+}
+
+
+
+// Send WhatsApp message
+function sendWhatsAppMessage(bookingData) {
+  // Group services by category
+  const servicesByCategory = {};
+  bookingData.services.forEach(service => {
+    if (!servicesByCategory[service.category]) {
+      servicesByCategory[service.category] = [];
+    }
+    servicesByCategory[service.category].push(service);
+  });
+  
+  // Create formatted services list
+  let servicesList = '';
+  Object.entries(servicesByCategory).forEach(([category, services]) => {
+    servicesList += `\n${category}:\n`;
+    services.forEach(service => {
+      servicesList += `• ${service.name} - ₹${service.price}\n`;
+    });
+  });
+  
+  const message = `Hello! I would like to book an appointment at Lavishh Beauty Salon.
+
+Name: ${bookingData.name}
+Contact: ${bookingData.contact}
+Date: ${bookingData.date}
+Time: ${bookingData.time}
+
+Services:${servicesList}
+Total: ₹${bookingData.total}
+
+Please confirm my appointment. Thank you!`;
+  
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/919019309686?text=${encodedMessage}`;
+  window.open(whatsappURL, '_blank');
+}
+
+// Show booking result message
+function showBookingResult(message, type) {
+  const resultDiv = document.getElementById('booking-result');
+  resultDiv.textContent = message;
+  resultDiv.className = `booking-result ${type}`;
+  resultDiv.style.display = 'block';
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    resultDiv.style.display = 'none';
+  }, 5000);
 }
 
 // Modal functions
 function openBookingModal() {
-    const modal = document.getElementById('booking-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+  const modal = document.getElementById('booking-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    // Reset form and selected services
+    const form = document.getElementById('booking-form');
+    if (form) {
+      form.reset();
+      selectedServices.clear(); // Clear all selected services
+      document.getElementById('booking-summary').style.display = 'none';
+      document.getElementById('booking-result').style.display = 'none';
     }
+  }
 }
 
 function closeBookingModal() {
-    const modal = document.getElementById('booking-modal');
-    if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
+  const modal = document.getElementById('booking-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
 }
-
-// Close modal when clicking outside
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-overlay')) {
-        closeBookingModal();
-    }
-});
 
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeBookingModal();
-    }
+  if (e.key === 'Escape') {
+    closeBookingModal();
+  }
 });
 
-// Smooth scroll for all anchor links
-document.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 70;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    }
-});
-
-// Add loading states and error handling
-function showError(message) {
-    console.error('Application Error:', message);
-    // You could show a user-friendly error message here
-}
-
-// Lazy loading for images
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
+// Service search functionality
+function setupServiceSearch() {
+  const searchInput = document.getElementById('service-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const serviceCards = document.querySelectorAll('.service-card');
+      
+      serviceCards.forEach(card => {
+        const serviceName = card.querySelector('h3').textContent.toLowerCase();
+        const serviceDesc = card.querySelector('p').textContent.toLowerCase();
         
-        images.forEach(img => imageObserver.observe(img));
-    }
+        if (serviceName.includes(searchTerm) || serviceDesc.includes(searchTerm)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  }
 }
 
-// Initialize lazy loading when content is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(initLazyLoading, 1000);
+// Preload critical images for better performance
+function preloadCriticalImages() {
+  const criticalImages = [
+    'image_assets/logo.png',
+    'image_assets/services/Facials/facial.jpg',
+    'image_assets/services/Hair Services/hair_service.jpg'
+  ];
+  
+  criticalImages.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
+// Add service to booking (called from service cards)
+function bookService(serviceName) {
+  openBookingModal();
+  
+  // Find the service in the data
+  for (const category of sampleData.services) {
+    const service = category.subServices.find(s => s.name === serviceName);
+    if (service) {
+      // Set the category
+      const categorySelect = document.getElementById('booking-category');
+      categorySelect.value = category.name;
+      
+      // Update sub-services
+      updateSubServices();
+      
+      // Pre-select the service
+      setTimeout(() => {
+        const serviceCheckbox = document.querySelector(`input[value="${serviceName}"]`);
+        if (serviceCheckbox) {
+          serviceCheckbox.checked = true;
+          toggleService(category.name, serviceName, service.price);
+        }
+      }, 100);
+      break;
+    }
+  }
+}
+
+
+/* -------------------------------------------------------------------------
+   BROWSER NAVIGATION (Back/Forward buttons)
+------------------------------------------------------------------------- */
+window.addEventListener('popstate', () => {
+  const params = new URLSearchParams(location.search);
+  const cat = params.get('cat');
+  
+  if (cat !== null && !isNaN(cat)) {
+    showCategoryPage(parseInt(cat));
+  } else {
+    showMainPage();
+  }
 });
 
-// Performance optimization: Throttle scroll events
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
+/* -------------------------------------------------------------------------
+   UTILITY FUNCTIONS
+------------------------------------------------------------------------- */
+// Scroll to top function
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Apply throttling to scroll events
-window.addEventListener('scroll', throttle(() => {
-    // Handle scroll events here if needed
-}, 100));
+// Share location functionality
+function shareLocation() {
+  const salonInfo = {
+    title: 'Lavishh Beauty Salon',
+    text: 'Visit us at Hanumantappa Circle, MG Rd, Chikkamagaluru',
+    url: 'https://maps.app.goo.gl/5XnrmCQHSybndTu47'
+  };
+
+  if (navigator.share) {
+    navigator.share(salonInfo)
+      .then(() => console.log('Location shared successfully'))
+      .catch((error) => console.log('Error sharing:', error));
+  } else {
+    // Fallback for browsers that don't support Web Share API
+    const shareUrl = `https://wa.me/?text=${encodeURIComponent(`${salonInfo.title} - ${salonInfo.text} ${salonInfo.url}`)}`;
+    window.open(shareUrl, '_blank');
+  }
+}
+
+// Smooth scrolling for anchor links
+document.addEventListener('click', (e) => {
+  if (e.target.matches('a[href^="#"]')) {
+    e.preventDefault();
+    const targetId = e.target.getAttribute('href').substring(1);
+    scrollToSection(targetId);
+  }
+});
+
+// Update scroll to top button on scroll
+window.addEventListener('scroll', () => {
+  const scrollToTopBtn = document.getElementById('scroll-to-top');
+  
+  // Show/hide scroll to top button
+  if (scrollToTopBtn) {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.classList.add('show');
+    } else {
+      scrollToTopBtn.classList.remove('show');
+    }
+  }
+});
