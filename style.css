@@ -752,6 +752,12 @@ html, body {
 
 .hidden { display: none !important; }
 
+/* === Hide Services Section on All Devices === */
+.footer-links .footer-section:nth-child(2),
+.footer-links .footer-section:nth-child(2) * {
+  display: none !important;
+}
+
 /* Ensure no horizontal overflow */
 * {
   box-sizing: border-box;
