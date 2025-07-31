@@ -1910,23 +1910,53 @@ body {
 }
 
 .social-link { 
-  width: 40px; 
-  height: 40px; 
-  background-color: rgba(212, 175, 55, 0.2); 
+  width: 50px; 
+  height: 50px; 
+  background: linear-gradient(135deg, #4267B2 0%, #365899 100%);
   color: var(--color-white); 
   border-radius: 50%; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
-  transition: all var(--duration-normal) var(--ease-standard);
+  transition: all 0.3s ease;
   text-decoration: none;
+  font-size: 18px;
+  box-shadow: 0 4px 15px rgba(66, 103, 178, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-link:hover { 
-  background-color: #d4af37; 
-  color: var(--color-slate-900); 
-  transform: translateY(-3px); 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transform: translateY(-5px) scale(1.1); 
+  box-shadow: 0 15px 30px rgba(66, 103, 178, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Individual social media colors */
+.social-link[aria-label="Facebook"] {
+  background: linear-gradient(135deg, #4267B2 0%, #365899 100%);
+  box-shadow: 0 4px 15px rgba(66, 103, 178, 0.3);
+}
+
+.social-link[aria-label="Facebook"]:hover {
+  box-shadow: 0 15px 30px rgba(66, 103, 178, 0.4);
+}
+
+.social-link[aria-label="Instagram"] {
+  background: linear-gradient(135deg, #E4405F 0%, #C13584 50%, #833AB4 100%);
+  box-shadow: 0 4px 15px rgba(228, 64, 95, 0.3);
+}
+
+.social-link[aria-label="Instagram"]:hover {
+  box-shadow: 0 15px 30px rgba(228, 64, 95, 0.4);
+}
+
+.social-link[aria-label="WhatsApp"] {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.social-link[aria-label="WhatsApp"]:hover {
+  box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
 }
 
 .footer-links {
@@ -2014,9 +2044,9 @@ body {
   }
   
   .social-link {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
   }
   
   .footer-links {
@@ -2155,6 +2185,7 @@ body {
     hyphens: auto !important;
     font-size: var(--font-size-xs) !important;
     line-height: 1.4 !important;
+    white-space: normal !important;
   }
   
   .contact-card a {
@@ -2163,6 +2194,18 @@ body {
     max-width: 100% !important;
     overflow-wrap: break-word !important;
     font-size: var(--font-size-xs) !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* Force email to wrap */
+  .contact-card a[href^="mailto:"] {
+    word-break: break-all !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+    display: inline-block !important;
   }
   
   .welcome-text {
@@ -2233,9 +2276,9 @@ body {
   }
   
   .social-link {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
   }
   
   .footer-section {
@@ -3026,6 +3069,7 @@ body {
     hyphens: auto !important;
     font-size: 10px !important;
     line-height: 1.3 !important;
+    white-space: normal !important;
   }
   
   .contact-card a {
@@ -3034,6 +3078,18 @@ body {
     max-width: 100% !important;
     overflow-wrap: break-word !important;
     font-size: 10px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* Force email to wrap on small mobile */
+  .contact-card a[href^="mailto:"] {
+    word-break: break-all !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+    display: inline-block !important;
   }
 }
 
