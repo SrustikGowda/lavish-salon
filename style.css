@@ -853,8 +853,8 @@ body {
 }
 
 .nav-container {
-  max-width: 100%;
-  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -877,12 +877,12 @@ body {
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 0;
+  gap: var(--space-16);
   margin: 0; 
   padding: 0;
   align-items: center;
   margin-left: auto;
-  margin-right: -10px;
+  margin-right: 0;
 }
 
 .nav-link {
@@ -922,17 +922,18 @@ body {
   background: linear-gradient(135deg, #d4af37, #b8941f);
   color: var(--color-slate-900);
   border: none;
-  padding: 4px 12px;
+  padding: 8px 16px;
   border-radius: 25px;
   font-weight: 600;
   font-size: 13px;
   transition: all var(--duration-normal) var(--ease-standard);
   box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
-  margin-left: 4px;
+  margin-left: 8px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .nav-book-btn:hover {
@@ -1852,9 +1853,13 @@ body {
   background-color: var(--color-slate-900); 
   color: var(--color-white); 
   padding: 80px 0 30px; 
+  overflow: hidden;
 }
 
 .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--space-32);
@@ -2666,6 +2671,7 @@ body {
     margin-top: var(--space-16);
     padding: var(--space-16) var(--space-32);
     font-size: var(--font-size-lg);
+    white-space: nowrap;
   }
   
   /* Adjust hero for smaller navbar */
