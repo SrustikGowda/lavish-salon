@@ -37,7 +37,13 @@
     <!-- ===================================== -->
     <!-- 1. WELCOME OVERLAY                    -->
     <!-- ===================================== -->
-    <div id="welcome-overlay" class="welcome-overlay">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+    
+    <!-- Page Transition -->
+    <div class="page-transition" id="page-transition"></div>
+    
+    <div id="welcome-overlay" class="welcome-overlay" style="display: flex;">
         <div class="welcome-content">
             <div class="logo-container">
                 <img src="image_assets/logo.png" alt="Lavishh Logo" class="welcome-logo-img" />
@@ -50,7 +56,7 @@
     <!-- ===================================== -->
     <!-- 2. NAVIGATION BAR                     -->
     <!-- ===================================== -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" style="display: none;">
         <div class="nav-container">
             <a href="#home" class="nav-logo" aria-label="Lavishh Beauty Salon home link">
                 <img src="image_assets/logo.png" alt="Lavishh Logo" class="nav-logo-img" />
@@ -80,12 +86,16 @@
     <!-- ===================================== -->
     <!-- 3. MAIN WRAPPER                       -->
     <!-- ===================================== -->
-    <main id="main-page">
+    <main id="main-page" style="display: none;">
         <!-- HERO -->
         <section id="home" class="hero">
             <div class="hero-background"></div>
             <div class="hero-content">
-                <h1 class="hero-title">Experience Luxury Beauty</h1>
+                <h1 class="hero-title">
+          <span>E</span><span>x</span><span>p</span><span>e</span><span>r</span><span>i</span><span>e</span><span>n</span><span>c</span><span>e</span><span> </span>
+          <span>L</span><span>u</span><span>x</span><span>u</span><span>r</span><span>y</span><span> </span>
+          <span>B</span><span>e</span><span>a</span><span>u</span><span>t</span><span>y</span>
+        </h1>
                 <p class="hero-subtitle">Transform yourself with our premium beauty services in the heart of Chikkamagaluru</p>
                 <div class="hero-buttons">
                     <button class="btn btn--primary" onclick="scrollToSection('services')">
@@ -349,7 +359,7 @@
     <!-- ===================================== -->
     <!-- 5. FOOTER                            -->
     <!-- ===================================== -->
-    <footer class="footer">
+    <footer class="footer" style="display: none;">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-header">

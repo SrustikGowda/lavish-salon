@@ -543,6 +543,20 @@ let autoScrollIntervals = [];
    INITIALISE APP
 ------------------------------------------------------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
+  // Ensure welcome overlay is visible first
+  const welcomeOverlay = document.getElementById('welcome-overlay');
+  const mainPage = document.getElementById('main-page');
+  
+  if (welcomeOverlay) {
+    welcomeOverlay.style.display = 'flex';
+    welcomeOverlay.style.zIndex = '10000';
+  }
+  
+  if (mainPage) {
+    mainPage.style.display = 'none';
+  }
+  
+  // Initialize immediately
   initialiseApp();
 });
 
@@ -559,12 +573,46 @@ function initialiseApp() {
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) {
       overlay.style.display = 'none';
+      overlay.style.opacity = '0';
+      overlay.style.visibility = 'hidden';
     }
     
-    // Show main page content after welcome overlay
+    // Show main page content after welcome overlay with smooth transition
     if (mainPage) {
       mainPage.style.display = 'block';
+      console.log('Main page should now be visible');
     }
+    
+    // Show navbar and footer specifically
+    const navbar = document.getElementById('navbar');
+    const footer = document.querySelector('.footer');
+    
+    if (navbar) {
+      navbar.style.display = 'block';
+    }
+    
+    if (footer) {
+      footer.style.display = 'block';
+    }
+    
+    // Ensure all main page sections are visible
+    const mainSections = document.querySelectorAll('.hero, .services, .gallery, .testimonials, .contact, .business-info, .cta-section, .team, .brands');
+    mainSections.forEach(section => {
+      if (section) {
+        section.style.display = 'block';
+        section.style.visibility = 'visible';
+        section.style.opacity = '1';
+      }
+    });
+    
+    // Fallback: Force show main page if it's still hidden
+    setTimeout(() => {
+      if (mainPage && mainPage.style.display === 'none') {
+        mainPage.style.display = 'block';
+        mainPage.style.visibility = 'visible';
+        mainPage.style.opacity = '1';
+      }
+    }, 100);
     
     // Setup navigation
     setupNavigation();
@@ -596,7 +644,13 @@ function initialiseApp() {
     
     // Preload critical images
     preloadCriticalImages();
-  }, 2500);
+    
+    // Initialize new features
+    initializeProgressBar();
+    initializeSwipeGestures();
+    initializePullToRefresh();
+    initializeHapticFeedback();
+  }, 2000);
 }
 
 /* -------------------------------------------------------------------------
@@ -742,22 +796,21 @@ function renderServices() {
   sampleData.services.forEach((service, index) => {
     const serviceCard = document.createElement('div');
     serviceCard.className = 'service-card';
-
+    serviceCard.style.cursor = 'pointer';
+    
     serviceCard.innerHTML = `
-    <a href="?cat=${index}" class="service-link">
       <div class="service-image-wrapper">
         <img src="${service.image}" alt="${service.name}" class="service-image">
       </div>
-      <div class="service-info">
-        <h3>${service.name}</h3>
-        <p>${service.description}</p>
+      <div class="service-icon">
+        <i class="${service.icon}"></i>
       </div>
-    </a>`;
+      <h3>${service.name}</h3>
+      <p>${service.description}</p>
+    `;
 
-    // Add click handler for SPA navigation
-    const link = serviceCard.querySelector('.service-link');
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
+    // Add click event handler to navigate to category page
+    serviceCard.addEventListener('click', () => {
       history.pushState({}, '', `?cat=${index}`);
       showCategoryPage(index);
     });
@@ -1530,4 +1583,182 @@ function navigateGallery(direction) {
       <span class="current-image">${newIndex + 1}</span> / <span class="total-images">${totalImages}</span>
     `;
   }
+}
+
+// ===== NEW LUXURY FEATURES =====
+
+// Progress Bar
+function initializeProgressBar() {
+  const progressBar = document.getElementById('progress-bar');
+  if (!progressBar) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  });
+}
+
+// Swipe Gestures
+function initializeSwipeGestures() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  
+  galleryItems.forEach(item => {
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+
+    item.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = true;
+      item.classList.add('swipe-active');
+    });
+
+    item.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = startX - currentX;
+      const diffY = startY - currentY;
+      
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        e.preventDefault();
+      }
+    });
+
+    item.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = startX - endX;
+      const diffY = startY - endY;
+      
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        // Swipe detected
+        if (diffX > 0) {
+          // Swipe left - next image
+          navigateGallery(1);
+        } else {
+          // Swipe right - previous image
+          navigateGallery(-1);
+        }
+      }
+      
+      isSwiping = false;
+      item.classList.remove('swipe-active');
+    });
+  });
+}
+
+// Pull to Refresh
+function initializePullToRefresh() {
+  let startY = 0;
+  let pullDistance = 0;
+  const pullThreshold = 80;
+  
+  document.addEventListener('touchstart', (e) => {
+    if (window.pageYOffset === 0) {
+      startY = e.touches[0].clientY;
+    }
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (window.pageYOffset === 0 && startY > 0) {
+      pullDistance = e.touches[0].clientY - startY;
+      
+      if (pullDistance > 0) {
+        e.preventDefault();
+        
+        if (pullDistance > pullThreshold) {
+          // Show refresh indicator
+          showPullIndicator();
+        }
+      }
+    }
+  });
+
+  document.addEventListener('touchend', () => {
+    if (pullDistance > pullThreshold) {
+      // Trigger refresh
+      refreshPage();
+    }
+    
+    startY = 0;
+    pullDistance = 0;
+    hidePullIndicator();
+  });
+}
+
+function showPullIndicator() {
+  let indicator = document.querySelector('.pull-indicator');
+  if (!indicator) {
+    indicator = document.createElement('div');
+    indicator.className = 'pull-indicator';
+    document.body.appendChild(indicator);
+  }
+  indicator.classList.add('active');
+}
+
+function hidePullIndicator() {
+  const indicator = document.querySelector('.pull-indicator');
+  if (indicator) {
+    indicator.classList.remove('active');
+  }
+}
+
+function refreshPage() {
+  // Simulate page refresh with transition
+  const transition = document.getElementById('page-transition');
+  if (transition) {
+    transition.classList.add('active');
+    setTimeout(() => {
+      location.reload();
+    }, 600);
+  }
+}
+
+// Haptic Feedback
+function initializeHapticFeedback() {
+  const buttons = document.querySelectorAll('.btn, .service-card, .gallery-item');
+  
+  buttons.forEach(button => {
+    button.addEventListener('touchstart', () => {
+      button.classList.add('haptic-feedback');
+      setTimeout(() => {
+        button.classList.remove('haptic-feedback');
+      }, 100);
+    });
+  });
+}
+
+// Page Transitions
+function showPageTransition() {
+  const transition = document.getElementById('page-transition');
+  if (transition) {
+    transition.classList.add('active');
+    setTimeout(() => {
+      transition.classList.remove('active');
+    }, 600);
+  }
+}
+
+// Skeleton Loading
+function showSkeletonLoading(container) {
+  if (!container) return;
+  
+  container.innerHTML = `
+    <div class="skeleton skeleton-title"></div>
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-price"></div>
+  `;
+}
+
+function hideSkeletonLoading(container) {
+  if (!container) return;
+  container.innerHTML = '';
 }
