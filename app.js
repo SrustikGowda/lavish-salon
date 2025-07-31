@@ -62,52 +62,59 @@ const sampleData = {
       ]
     },
     {
-      name: "Hair Services",
+      name: "Haircuts and Styling",
       description: "Complete hair care and styling solutions",
       icon: "fas fa-cut",
-      image: "image_assets/services/Hair Services/hair_service.jpg",
+      image: "image_assets/services/Haircuts and Styling/hair_service.jpg",
       subServices: [
         {
           name: "Haircut (Basic)",
           description: "Professional hair cutting and styling",
           price: 200,
           icon: "fas fa-scissors",
-          image: "image_assets/services/Hair Services/Haircut (Basic)/haircutbasic.jpg"
+          image: "image_assets/services/Haircuts and Styling/Haircut (Basic)/haircutbasic.jpg"
         },
         {
           name: "Haircut (Advanced)",
           description: "Premium hair cutting with expert styling",
           price: 400,
           icon: "fas fa-magic",
-          image: "image_assets/services/Hair Services/Haircut (Advanced)/haircutadvanced.jpg"
+          image: "image_assets/services/Haircuts and Styling/Haircut (Advanced)/haircutadvanced.jpg"
         },
         {
           name: "Hair Spa (Basic)",
           description: "Relaxing hair treatment and conditioning",
           price: 800,
           icon: "fas fa-water",
-          image: "image_assets/services/Hair Services/Hair Spa (Basic)/spabasic.jpg"
+          image: "image_assets/services/Haircuts and Styling/Hair Spa (Basic)/spabasic.jpg"
         },
         {
           name: "Hair Spa (Advanced)",
           description: "Intensive hair treatment with premium products",
           price: 1300,
           icon: "fas fa-spa",
-          image: "image_assets/services/Hair Services/Hair Spa (Advanced)/spaadvanced.jpg"
+          image: "image_assets/services/Haircuts and Styling/Hair Spa (Advanced)/spaadvanced.jpg"
         },
         {
           name: "Head Massage (Oil)",
           description: "Therapeutic oil massage for hair and scalp",
           price: 300,
           icon: "fas fa-hand-sparkles",
-          image: "image_assets/services/Hair Services/Head Massage (Oil)/massage.jpg"
+          image: "image_assets/services/Haircuts and Styling/Head Massage (Oil)/massage.jpg"
         },
         {
           name: "Hair wash & Blow dry",
           description: "Deep cleansing hair wash followed by professional blow dry for a sleek, voluminous finish",
           price: 300,
           icon: "fas fa-hand-sparkles",
-          image: "image_assets/services/Hair Services/Hair wash/hairwash.avif"
+          image: "image_assets/services/Haircuts and Styling/Hair wash/hairwash.avif"
+        },
+        {
+          name: "Hair Straightening/Curling",
+          description: "Professional hair straightening or curling for a stunning transformation",
+          price: 400,
+          icon: "fas fa-magic-wand-sparkles",
+          image: "image_assets/services/Haircuts and Styling/Hair Straightening-Curling/curling.webp"
         }
       ]
     },
@@ -540,15 +547,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function initialiseApp() {
-  // Initialize AOS animations
-  if (typeof AOS !== 'undefined') {
-    AOS.init({ 
-      duration: 1000, 
-      once: true, 
-      offset: 100,
-      easing: 'ease-out-cubic'
-    });
-  }
 
   // Remove welcome overlay after animation
   setTimeout(() => {
@@ -575,6 +573,16 @@ function initialiseApp() {
   
   // Setup service search
   setupServiceSearch();
+  
+  // Render all sections immediately
+  renderServices();
+  renderGallery();
+  renderTestimonials();
+  renderTeam();
+  renderBrands();
+  
+  // Ensure all service cards are visible on page load
+  showAllServiceCards();
   
   // Preload critical images
   preloadCriticalImages();
@@ -656,9 +664,12 @@ function showMainPage() {
   renderTeam()
   renderBrands();
   initBooking();
+  
+  // Ensure all service cards are visible
+  showAllServiceCards();
 
   // Start auto-scroll after rendering
-  setTimeout(startAutoScroll, 500);
+  setTimeout(startAutoScroll, 100);
 
   // Set minimum date for booking to today
   const today = new Date().toISOString().split('T')[0];
@@ -720,8 +731,6 @@ function renderServices() {
   sampleData.services.forEach((service, index) => {
     const serviceCard = document.createElement('div');
     serviceCard.className = 'service-card';
-    serviceCard.setAttribute('data-aos', 'fade-up');
-    serviceCard.setAttribute('data-aos-delay', index * 100);
 
     serviceCard.innerHTML = `
     <a href="?cat=${index}" class="service-link">
@@ -768,8 +777,6 @@ function renderCategoryDetail(categoryIndex) {
   category.subServices.forEach((subService, index) => {
     const subCard = document.createElement('div');
     subCard.className = 'subcategory-card';
-    subCard.setAttribute('data-aos', 'fade-up');
-    subCard.setAttribute('data-aos-delay', index * 100);
 
     subCard.innerHTML = `
       <div class="subcategory-image">
@@ -803,6 +810,11 @@ function renderGallery() {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'gallery-item';
     galleryItem.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy">`;
+    
+    // Add click handler for fullscreen
+    const img = galleryItem.querySelector('img');
+    img.addEventListener('click', () => openFullscreenGallery(item.image, item.alt, index));
+    
     container.appendChild(galleryItem);
   });
 }
@@ -845,8 +857,6 @@ function renderTeam() {
     sampleData.beauticians.forEach((member, index) => {
       const card = document.createElement('div');
       card.className = 'team-card';
-      card.setAttribute('data-aos', 'fade-up');
-      card.setAttribute('data-aos-delay', index * 100);
       card.innerHTML = `
         <div class="team-photo-wrapper">
           <img src="${member.photo}" alt="${member.name}" class="team-photo" />
@@ -1274,6 +1284,14 @@ function setupServiceSearch() {
       const searchTerm = e.target.value.toLowerCase();
       const serviceCards = document.querySelectorAll('.service-card');
       
+      // If search is empty, show all cards
+      if (searchTerm === '') {
+        serviceCards.forEach(card => {
+          card.classList.remove('hidden');
+        });
+        return;
+      }
+      
       serviceCards.forEach(card => {
         const serviceName = card.querySelector('h3').textContent.toLowerCase();
         const serviceDesc = card.querySelector('p').textContent.toLowerCase();
@@ -1288,12 +1306,20 @@ function setupServiceSearch() {
   }
 }
 
+// Show all service cards (used on page load)
+function showAllServiceCards() {
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.classList.remove('hidden');
+  });
+}
+
 // Preload critical images for better performance
 function preloadCriticalImages() {
   const criticalImages = [
     'image_assets/logo.png',
     'image_assets/services/Facials/facial.jpg',
-    'image_assets/services/Hair Services/hair_service.jpg'
+    'image_assets/services/Haircuts and Styling/hair_service.jpg'
   ];
   
   criticalImages.forEach(src => {
@@ -1394,3 +1420,103 @@ window.addEventListener('scroll', () => {
     }
   }
 });
+
+/* -------------------------------------------------------------------------
+   FULLSCREEN GALLERY FUNCTIONALITY
+------------------------------------------------------------------------- */
+function openFullscreenGallery(imageSrc, imageAlt, imageIndex = 0) {
+  // Create fullscreen overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'fullscreen-gallery-overlay';
+  
+  // Get current image index if not provided
+  if (imageIndex === 0) {
+    const currentImage = sampleData.gallery.findIndex(item => item.image === imageSrc);
+    imageIndex = currentImage !== -1 ? currentImage : 0;
+  }
+  
+  overlay.innerHTML = `
+    <div class="fullscreen-gallery-content">
+      <button class="fullscreen-close-btn" onclick="closeFullscreenGallery()">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="fullscreen-nav-btn fullscreen-prev-btn" onclick="navigateGallery(-1)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="fullscreen-nav-btn fullscreen-next-btn" onclick="navigateGallery(1)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <img src="${imageSrc}" alt="${imageAlt}" class="fullscreen-gallery-image" data-index="${imageIndex}">
+      <div class="fullscreen-gallery-counter">
+        <span class="current-image">${imageIndex + 1}</span> / <span class="total-images">${sampleData.gallery.length}</span>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+  
+  // Store current index globally
+  window.currentGalleryIndex = imageIndex;
+  
+  // Add click outside to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      closeFullscreenGallery();
+    }
+  });
+  
+  // Add escape key to close
+  document.addEventListener('keydown', handleFullscreenKeydown);
+}
+
+function closeFullscreenGallery() {
+  const overlay = document.querySelector('.fullscreen-gallery-overlay');
+  if (overlay) {
+    overlay.remove();
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleFullscreenKeydown);
+  }
+}
+
+function handleFullscreenKeydown(e) {
+  if (e.key === 'Escape') {
+    closeFullscreenGallery();
+  } else if (e.key === 'ArrowLeft') {
+    navigateGallery(-1);
+  } else if (e.key === 'ArrowRight') {
+    navigateGallery(1);
+  }
+}
+
+function navigateGallery(direction) {
+  const totalImages = sampleData.gallery.length;
+  let newIndex = window.currentGalleryIndex + direction;
+  
+  // Loop around
+  if (newIndex < 0) {
+    newIndex = totalImages - 1;
+  } else if (newIndex >= totalImages) {
+    newIndex = 0;
+  }
+  
+  // Update global index
+  window.currentGalleryIndex = newIndex;
+  
+  // Get the new image data
+  const newImage = sampleData.gallery[newIndex];
+  
+  // Update the image and counter
+  const imageElement = document.querySelector('.fullscreen-gallery-image');
+  const counterElement = document.querySelector('.fullscreen-gallery-counter');
+  
+  if (imageElement && counterElement) {
+    imageElement.src = newImage.image;
+    imageElement.alt = newImage.alt;
+    imageElement.setAttribute('data-index', newIndex);
+    
+    counterElement.innerHTML = `
+      <span class="current-image">${newIndex + 1}</span> / <span class="total-images">${totalImages}</span>
+    `;
+  }
+}
