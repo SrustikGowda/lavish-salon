@@ -722,6 +722,21 @@ function showMainPage() {
   document.getElementById('main-page').classList.remove('hidden');
   document.getElementById('category-page').classList.add('hidden');
 
+  // Show discount card if discount is greater than 0
+  const discountCard = document.getElementById('discount-card');
+  if (discountCard) {
+    if (DISCOUNT_PERCENT > 0) {
+      discountCard.style.display = 'block';
+      // Update the percentage in the card
+      const percentageElement = discountCard.querySelector('.discount-percentage-number');
+      if (percentageElement) {
+        percentageElement.textContent = DISCOUNT_PERCENT;
+      }
+    } else {
+      discountCard.style.display = 'none';
+    }
+  }
+
   // Render all sections
   renderServices();
   renderGallery();
@@ -764,6 +779,10 @@ function showCategoryPage(categoryIndex) {
     backBtn.onclick = () => {
       history.pushState({}, '', location.pathname);
       showMainPage();
+      // Scroll to services section after a short delay to ensure page is rendered
+      setTimeout(() => {
+        scrollToSection('services');
+      }, 100);
     };
   }
 }
