@@ -3,254 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavish Beauty Salon - Premium Beauty Services</title>
+    <title>Lavishh Beauty Salon – Luxury Beauty Experience</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Premium beauty salon in Chikkamagaluru offering facials, haircuts and styling, makeup, waxing, and more. Book your appointment today for luxury beauty treatments.">
+    <meta name="keywords" content="beauty salon, facial, haircuts and styling, makeup, waxing, Chikkamagaluru, Lavishh">
+    <meta name="author" content="Lavishh Beauty Salon">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lavishhbeautysalon.com/">
+    <meta property="og:title" content="Lavishh Beauty Salon – Luxury Beauty Experience">
+    <meta property="og:description" content="Premium beauty salon in Chikkamagaluru. Book your appointment for luxury beauty treatments.">
+    <meta property="og:image" content="image_assets/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://lavishhbeautysalon.com/">
+    <meta property="twitter:title" content="Lavishh Beauty Salon – Luxury Beauty Experience">
+    <meta property="twitter:description" content="Premium beauty salon in Chikkamagaluru. Book your appointment for luxury beauty treatments.">
+    <meta property="twitter:image" content="image_assets/logo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="image_assets/logo.png">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- External Animation Library -->
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Welcome Animation Overlay -->
-    <div id="welcome-overlay" class="welcome-overlay">
+    <!-- ===================================== -->
+    <!-- 1. WELCOME OVERLAY                    -->
+    <!-- ===================================== -->
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+    
+    <!-- Page Transition -->
+    <div class="page-transition" id="page-transition"></div>
+    
+    <div id="welcome-overlay" class="welcome-overlay" style="display: flex;">
         <div class="welcome-content">
-            <h1 class="welcome-text">Welcome to</h1>
-            <h2 class="welcome-salon-name">Lavish Beauty Salon</h2>
-            <div class="welcome-loader"></div>
+            <div class="logo-container">
+                <img src="image_assets/logo.png" alt="Lavishh Logo" class="welcome-logo-img" />
+            </div>
+            <h1 class="welcome-text">Lavishh Beauty Salon</h1>
+            <p class="welcome-subtitle">Where Beauty Meets Luxury</p>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <!-- ===================================== -->
+    <!-- 2. NAVIGATION BAR                     -->
+    <!-- ===================================== -->
+    <nav class="navbar" id="navbar" style="display: none;">
         <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">Lavish Beauty</span>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
-                <a href="#testimonials" class="nav-link">Reviews</a>
-                <a href="#team" class="nav-link">Team</a>
-                <a href="#partners" class="nav-link">Partners</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <button class="btn btn--primary nav-book-btn" onclick="openBookingModal()">Book Now</button>
-            </div>
-            <div class="hamburger" id="hamburger">
+            <a href="#home" class="nav-logo" aria-label="Lavishh Beauty Salon home link">
+                <img src="image_assets/logo.png" alt="Lavishh Logo" class="nav-logo-img" />
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li>
+                    <a href="#" id="nav-home" class="nav-link">Home</a>
+                </li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <button class="btn btn--primary nav-book-btn" onclick="openBookingModal()">
+                    <i class="fas fa-calendar-alt"></i>
+                    Book Now
+                </button>
+            </ul>
+            <!-- Hamburger -->
+            <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background"></div>
-        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-            <h1 class="hero-title">Transform Your Beauty</h1>
-            <p class="hero-subtitle">Experience luxury and elegance at Delhi's premier beauty destination</p>
-            <div class="hero-buttons">
-                <button class="btn btn--primary btn--lg" onclick="openBookingModal()">Book Appointment</button>
-                <a href="#services" class="btn btn--outline btn--lg">Our Services</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Discover our comprehensive range of beauty treatments</p>
-            </div>
-            <div id="services-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading services...</p>
-            </div>
-            <div id="services-container" class="services-grid" style="display: none;">
-                <!-- Services will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Salon Gallery</h2>
-                <p class="section-subtitle">Take a glimpse into our luxurious salon environment</p>
-            </div>
-            <div id="gallery-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading gallery...</p>
-            </div>
-            <div id="gallery-container" class="gallery-grid" style="display: none;">
-                <!-- Gallery will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">What Our Clients Say</h2>
-                <p class="section-subtitle">Real experiences from our valued customers</p>
-            </div>
-            <div id="testimonials-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading testimonials...</p>
-            </div>
-            <div id="testimonials-container" class="testimonials-carousel" style="display: none;">
-                <!-- Testimonials will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="team" class="team-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Our Expert Team</h2>
-                <p class="section-subtitle">Meet our skilled beauticians and stylists</p>
-            </div>
-            <div id="team-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading team...</p>
-            </div>
-            <div id="team-container" class="team-grid" style="display: none;">
-                <!-- Team will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Brand Partners Section -->
-    <section id="partners" class="partners-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Brand Partners</h2>
-                <p class="section-subtitle">We use premium products from trusted brands</p>
-            </div>
-            <div id="partners-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading partners...</p>
-            </div>
-            <div id="partners-container" class="partners-grid" style="display: none;">
-                <!-- Partners will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Visit us or reach out for appointments</p>
-            </div>
-            <div id="contact-loading" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading contact info...</p>
-            </div>
-            <div id="contact-container" class="contact-content" style="display: none;">
-                <!-- Contact info will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Modal -->
-    <div id="booking-modal" class="modal hidden">
-        <div class="modal-overlay" onclick="closeBookingModal()"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Book Your Appointment</h3>
-                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="booking-form">
-                    <div class="form-group">
-                        <label class="form-label">Select Date</label>
-                        <input type="date" id="booking-date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Select Time</label>
-                        <select id="booking-time" class="form-control" required>
-                            <option value="">Choose time</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                            <option value="18:00">6:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Select Service Category</label>
-                        <select id="booking-category" class="form-control" required onchange="updateSubServices()">
-                            <option value="">Choose category</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Select Services</label>
-                        <div id="sub-services-container" class="sub-services-list">
-                            <p class="text-muted">Please select a category first</p>
+    <!-- ===================================== -->
+    <!-- 3. MAIN WRAPPER                       -->
+    <!-- ===================================== -->
+    <main id="main-page" style="display: none;">
+        <!-- HERO -->
+        <section id="home" class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+          <span>E</span><span>x</span><span>p</span><span>e</span><span>r</span><span>i</span><span>e</span><span>n</span><span>c</span><span>e</span><span> </span>
+          <span>L</span><span>u</span><span>x</span><span>u</span><span>r</span><span>y</span><span> </span>
+          <span>B</span><span>e</span><span>a</span><span>u</span><span>t</span><span>y</span>
+        </h1>
+                
+                <!-- Discount Card -->
+                <div id="discount-card" class="discount-card" style="display: none;">
+                    <div class="discount-card-content">
+                        <div class="discount-card-header">
+                            <i class="fas fa-gift discount-card-icon"></i>
+                            <div class="discount-card-sparkle"></div>
+                        </div>
+                        <div class="discount-card-body">
+                            <div class="discount-card-percentage">
+                                <span class="discount-percentage-number">20</span>
+                                <span class="discount-percentage-symbol">%</span>
+                            </div>
+                            <div class="discount-card-text">
+                                <span class="discount-card-off">OFF</span>
+                                <span class="discount-card-label">Limited Time Offer</span>
+                            </div>
+                        </div>
+                        <div class="discount-card-ribbon">
+                            <span>SAVE BIG</span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Your Name</label>
-                        <input type="text" id="booking-name" class="form-control" placeholder="Enter your name" required>
+                </div>
+                
+                <p class="hero-subtitle">Transform yourself with our premium beauty services in the heart of Chikkamagaluru</p>
+                <div class="hero-buttons">
+                    <button class="btn btn--primary" onclick="scrollToSection('services')">
+                        <i class="fas fa-sparkles"></i>
+                        Explore Services
+                    </button>
+                    <div class="hero-buttons">
+                        <button class="btn btn--primary btn--lg" onclick="openBookingModal()">Book Appointment</button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn--outline" onclick="closeBookingModal()">Cancel</button>
-                        <button type="submit" class="btn btn--primary">Send via WhatsApp</button>
+                </div>
+            </div>
+            <div class="hero-decoration">
+                <div class="floating-element element-1"></div>
+                <div class="floating-element element-2"></div>
+                <div class="floating-element element-3"></div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Luxury Services</h2>
+                    <p class="section-subtitle">Indulge in our premium beauty treatments</p>
+                </div>
+                <div class="services-search">
+                    <input type="text" id="service-search" placeholder="Search for services..." class="service-search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="services-grid" id="services-grid">
+                    <!-- Filled by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Salon Gallery</h2>
+                    <p class="section-subtitle">Step into our luxurious space</p>
+                </div>
+                <div class="gallery-scroll" id="gallery-scroll" aria-label="Salon gallery – horizontally scrollable">
+                    <!-- Filled by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">What Our Clients Say</h2>
+                    <p class="section-subtitle">Trusted by beauty enthusiasts</p>
+                </div>
+                <div class="testimonials-scroll" id="testimonials-scroll" aria-label="Client testimonials – horizontally scrollable">
+                    <!-- Filled by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Expert Team</h2>
+                    <p class="section-subtitle">Meet our skilled beauticians and stylists</p>
+                </div>
+                <div id="team-loading" class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading team...</p>
+                </div>
+                <div id="team-container" class="team-grid" style="display: none;">
+                    <!-- Team will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- BRANDS -->
+        <section id="brands" class="brands">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Premium Brands We Use</h2>
+                    <p class="section-subtitle">Only the finest products for our clients</p>
+                </div>
+                <div class="brands-scroll" id="brands-scroll" aria-label="Brands we use – horizontally scrollable">
+                    <!-- Filled by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section id="cta" class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Transform Your Beauty?</h2>
+                    <p>Experience luxury beauty treatments with our expert team. Book your appointment today and discover the Lavishh difference.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn--primary btn--lg" onclick="openBookingModal()">
+                            <i class="fas fa-calendar-alt"></i>
+                            Book Your Appointment
+                        </button>
+                        <button class="btn btn--outline btn--lg" onclick="scrollToSection('contact')">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Visit Our Salon
+                        </button>
                     </div>
-                </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUSINESS INFO -->
+        <section id="business-info" class="business-info">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose Lavishh?</h2>
+                    <p class="section-subtitle">Experience the difference of professional beauty care</p>
+                </div>
+                <div class="business-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Expert Team</h3>
+                        <p>Certified beauticians with years of experience in luxury beauty treatments</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Premium Products</h3>
+                        <p>We use only the finest brands like L'Oreal, Lakme, and Biotique</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3>Luxury Experience</h3>
+                        <p>Relaxing ambiance with state-of-the-art equipment and facilities</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Customer Satisfaction</h3>
+                        <p>100% satisfaction guaranteed with personalized beauty solutions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Ready to enhance your beauty?</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <h3>Visit Us</h3>
+                            <p>
+                                <strong>Lavishh Beauty Salon</strong><br>
+                                Hanumantappa Circle, MG Rd,<br>
+                                Joythinagar, Chikkamagaluru,<br>
+                                Karnataka 577101
+                            </p>
+                        </div>                        
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <h3>Call Us</h3>
+                            <p><a href="tel:+919019309686">+91 9019309686</a></p>
+                            <button class="btn btn--primary contact-btn" onclick="window.open('tel:+919019309686')">
+                                <i class="fas fa-phone"></i>
+                                Call Now
+                            </button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <h3>Email Us</h3>
+                            <p><a href="mailto:lavishhbeautysalon@gmail.com">lavishhbeautysalon@gmail.com</a></p>
+                            <button class="btn btn--primary contact-btn" onclick="window.open('mailto:lavishhbeautysalon@gmail.com')">
+                                <i class="fas fa-envelope"></i>
+                                Send Email
+                            </button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                            <h3>Opening Hours</h3>
+                            <p>Mon – Sat: 10:30 AM – 7:30 PM<br>Sunday: 11:00 AM – 6:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="map-wrapper">
+                        <div class="navigate-header">
+                          <h3>Find Us &amp; Navigate</h3>
+                          <p>Get directions to our salon with one click</p>
+                        </div>
+                        <div class="map-container">
+                          <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.3997424783906!2d75.7743206!3d13.325392099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbad9ffa883e2c9%3A0x6a98433e9e70b07d!2sLavishh%20Beauty%20Salon!5e0!3m2!1sen!2sin!4v1753892952202!5m2!1sen!2sin"
+                            width="100%" height="350" style="border:0; border-radius:12px;"
+                            allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            aria-label="Lavishh Beauty Salon location on Google Maps">
+                          </iframe>
+                          <a href="https://maps.app.goo.gl/5XnrmCQHSybndTu47"
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             class="map-link"
+                             aria-label="Open Lavishh Beauty Salon in Google Maps"></a>
+                        </div>
+                        <div class="map-actions">
+                          <button class="btn btn--primary map-action-btn" onclick="window.open('https://maps.app.goo.gl/5XnrmCQHSybndTu47', '_blank')">
+                            <i class="fas fa-directions"></i>
+                            Get Directions
+                          </button>
+                          <button class="btn btn--outline map-action-btn" onclick="window.open('tel:+919019309686', '_blank')">
+                            <i class="fas fa-phone"></i>
+                            Call for Directions
+                          </button>
+                          <button class="btn btn--outline map-action-btn" onclick="shareLocation()">
+                            <i class="fas fa-share-alt"></i>
+                            Share Location
+                          </button>
+                        </div>
+                    </div>                                   
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================================== -->
+    <!-- 4. CATEGORY DETAIL (SPA VIEW)         -->
+    <!-- ===================================== -->
+    <main id="category-page" class="category-page hidden">
+        <div class="category-hero">
+            <button id="back-btn" class="back-btn" aria-label="Go back to services">
+                <i class="fas fa-arrow-left"></i>
+                Back to Services
+            </button>
+            <div class="category-hero-content">
+                <div class="category-hero-image" id="category-hero-image"></div>
+                <div class="category-hero-text">
+                    <h1 id="category-title">Service Category</h1>
+                    <p id="category-description">Detailed description of the service category</p>
+                </div>
             </div>
         </div>
-    </div>
+        <section class="category-services">
+            <div class="container">
+                <h2>Available Services</h2>
+                <div class="subcategory-grid" id="subcategory-grid">
+                    <!-- Filled by app.js -->
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- ===================================== -->
+    <!-- 5. FOOTER                            -->
+    <!-- ===================================== -->
+    <footer class="footer" style="display: none;">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Lavish Beauty Salon</h4>
-                    <p>Your trusted partner in beauty and wellness. Experience luxury like never before.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" target="_blank">Instagram</a>
-                        <a href="#" target="_blank">Facebook</a>
-                        <a href="#" target="_blank">WhatsApp</a>
+                <div class="footer-header">
+                    <div class="footer-logo">
+                        <img src="image_assets/logo.png" alt="Lavishh Logo" class="footer-logo-img" />
+                        <span>Lavishh Beauty Salon</span>
                     </div>
+                    <p class="footer-text">Where beauty meets luxury. Experience the finest beauty treatments in Chikkamagaluru with our expert team and premium products.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#testimonials">Testimonials</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Hanumantappa Circle, MG Rd, Chikkamagaluru</li>
+                            <li><i class="fas fa-phone"></i> +91 9019309686</li>
+                            <li><i class="fas fa-envelope"></i> lavishhbeautysalon@gmail.com</li>
+                            <li><i class="fas fa-clock"></i> Mon-Sat: 9AM-8PM, Sun: 10AM-6PM</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Facebook" onclick="alert('Facebook page coming soon!')"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/lavishhbeautysalon" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/919019309686" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Lavish Beauty Salon. All rights reserved.</p>
+                <p>&copy; 2025 Lavishh Beauty Salon. All rights reserved. | GST No: [Your GST Number]</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-    <script src="app.js"></script>
+    <!-- ===================================== -->
+    <!-- 7. BOOKING MODAL                     -->
+    <!-- ===================================== -->
+    <div id="booking-modal" class="booking-modal hidden">
+        <div class="booking-modal-overlay"></div>
+        <div class="booking-modal-content">
+            <div class="booking-modal-header">
+                <h2>Book Your Appointment</h2>
+                <button class="booking-close-btn" onclick="window.lavishhApp.features.booking.closeModal()" aria-label="Close booking modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="booking-form" class="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="booking-name" class="form-label">Full Name *</label>
+                        <input type="text" id="booking-name" name="booking-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-contact" class="form-label">Contact Number *</label>
+                        <input type="tel" id="booking-contact" name="booking-contact" class="form-control" pattern="[0-9]{10,13}" required placeholder="e.g. 9019309686">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="booking-date" class="form-label">Preferred Date *</label>
+                        <input type="date" id="booking-date" name="booking-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-time" class="form-label">Preferred Time *</label>
+                        <select id="booking-time" name="booking-time" class="form-control" required>
+                            <option value="">Select time</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                            <option value="18:00">06:00 PM</option>
+                            <option value="19:00">07:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="booking-category" class="form-label">Service Category *</label>
+                    <select id="booking-category" name="booking-category" class="form-control" required>
+                        <option value="">Select a category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Services *</label>
+                    <div id="sub-services-container" class="services-checkbox-container">
+                        <p class="text-muted">Please select a category to view available services</p>
+                    </div>
+                </div>
+                <div class="booking-summary" id="booking-summary" style="display: none;">
+                    <h4>Booking Summary</h4>
+                    <div id="summary-content"></div>
+                    <div class="total-amount">
+                        <strong>Total: ₹<span id="total-amount">0</span></strong>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline" onclick="window.lavishhApp.features.booking.closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn--primary" id="submitBtn">
+                        <i class="fab fa-whatsapp"></i>
+                        Send WhatsApp Booking
+                    </button>
+                </div>
+                <div id="booking-result" class="booking-result"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- 6. SCROLL TO TOP BUTTON              -->
+    <!-- ===================================== -->
+    <button id="scroll-to-top" class="scroll-to-top" onclick="scrollToTop()" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===================================== -->
+    <!-- 7. SCRIPTS                           -->
+    <!-- ===================================== -->
+
+    <!-- Configuration File (Load First) -->
+    <script src="config.js"></script>
+    
+    <!-- Feature Modules -->
+    <script src="js/features/discount.js"></script>
+    <script src="js/features/services.js"></script>
+    <script src="js/features/booking.js"></script>
+    
+    <!-- Main Application -->
+    <script src="js/app.js" defer></script>
 </body>
 </html>
