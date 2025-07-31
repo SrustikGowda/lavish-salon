@@ -2059,6 +2059,11 @@ body {
     transform: translateY(-2px);
   }
   
+  /* Hide Services section on mobile to reduce clutter */
+  .footer-section:nth-child(2) {
+    display: none;
+  }
+  
   .footer-bottom {
     padding-top: var(--space-20);
     font-size: var(--font-size-xs);
@@ -2128,6 +2133,22 @@ body {
   
   .contact-cards {
     grid-template-columns: 1fr;
+  }
+  
+  /* Fix contact card email cutoff on mobile */
+  .contact-card {
+    padding: var(--space-20);
+  }
+  
+  .contact-card p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .contact-card a {
+    word-break: break-all;
+    display: inline-block;
+    max-width: 100%;
   }
   
   .welcome-text {
@@ -2229,6 +2250,11 @@ body {
     font-size: 10px;
     line-height: 1.4;
     margin-top: var(--space-20);
+  }
+  
+  /* Hide Services section on small mobile to reduce clutter */
+  .footer-section:nth-child(2) {
+    display: none;
   }
 }
 
@@ -2975,6 +3001,22 @@ body {
   .btn {
     padding: var(--space-10) var(--space-20);
     font-size: var(--font-size-sm);
+  }
+  
+  /* Fix contact card email cutoff on small mobile */
+  .contact-card {
+    padding: var(--space-16);
+  }
+  
+  .contact-card p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .contact-card a {
+    word-break: break-all;
+    display: inline-block;
+    max-width: 100%;
   }
 }
 
