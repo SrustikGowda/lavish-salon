@@ -548,44 +548,55 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function initialiseApp() {
 
-  // Remove welcome overlay after animation
+  // Hide main page content initially
+  const mainPage = document.getElementById('main-page');
+  if (mainPage) {
+    mainPage.style.display = 'none';
+  }
+
+  // Remove welcome overlay after animation and show main page
   setTimeout(() => {
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) {
       overlay.style.display = 'none';
     }
+    
+    // Show main page content after welcome overlay
+    if (mainPage) {
+      mainPage.style.display = 'block';
+    }
+    
+    // Setup navigation
+    setupNavigation();
+
+    // Check URL parameters to show appropriate page
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat');
+    if (cat !== null && !isNaN(cat)) {
+      showCategoryPage(parseInt(cat));
+    } else {
+      showMainPage();
+    }
+
+    // Setup scroll interaction handlers after short delay
+    setTimeout(setupScrollInteractionHandlers, 1000);
+    
+    // Setup service search
+    setupServiceSearch();
+    
+    // Render all sections immediately
+    renderServices();
+    renderGallery();
+    renderTestimonials();
+    renderTeam();
+    renderBrands();
+    
+    // Ensure all service cards are visible on page load
+    showAllServiceCards();
+    
+    // Preload critical images
+    preloadCriticalImages();
   }, 2500);
-
-  // Setup navigation
-  setupNavigation();
-
-  // Check URL parameters to show appropriate page
-  const params = new URLSearchParams(location.search);
-  const cat = params.get('cat');
-  if (cat !== null && !isNaN(cat)) {
-    showCategoryPage(parseInt(cat));
-  } else {
-    showMainPage();
-  }
-
-  // Setup scroll interaction handlers after short delay
-  setTimeout(setupScrollInteractionHandlers, 1000);
-  
-  // Setup service search
-  setupServiceSearch();
-  
-  // Render all sections immediately
-  renderServices();
-  renderGallery();
-  renderTestimonials();
-  renderTeam();
-  renderBrands();
-  
-  // Ensure all service cards are visible on page load
-  showAllServiceCards();
-  
-  // Preload critical images
-  preloadCriticalImages();
 }
 
 /* -------------------------------------------------------------------------
