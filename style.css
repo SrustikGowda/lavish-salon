@@ -540,6 +540,32 @@ select.form-control {
   padding-right: var(--space-32);
 }
 
+/* Date input styling - show calendar icon */
+input[type="date"].form-control {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  background-image: none;
+  padding-right: var(--space-12);
+  color: white;
+}
+
+/* Style the calendar icon to be white */
+input[type="date"].form-control::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+input[type="date"].form-control::-moz-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+input[type="date"].form-control::-ms-clear,
+input[type="date"].form-control::-ms-expand {
+  filter: invert(1);
+}
+
 /* Add a dark mode specific caret */
 @media (prefers-color-scheme: dark) {
   select.form-control {
@@ -1633,7 +1659,7 @@ body {
   left: 10px;
   width: 60px;
   height: 60px;
-  background-image: url('ribbon.png');
+  background-image: url('image_assets/ribbon.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -2217,22 +2243,40 @@ body {
 }
 
 .team-card {
-  background: var(--color-surface);
+  background: linear-gradient(145deg, var(--color-surface) 0%, rgba(212, 175, 55, 0.05) 100%);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: var(--space-24) var(--space-16);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1), 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--space-32) var(--space-20);
   text-align: center;
-  transition: transform .3s, box-shadow .3s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   max-width: 320px;
   width: 100%;
   margin: 0 auto;
   position: relative;
-  border: 1px solid var(--color-card-border);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.team-card:hover::before {
+  left: 100%;
 }
 
 .team-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.12);
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25), 0 8px 32px rgba(0, 0, 0, 0.15);
+  border-color: rgba(212, 175, 55, 0.4);
 }
 
 .team-photo-wrapper {
@@ -2243,17 +2287,38 @@ body {
 }
 
 .team-photo {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #d4af37;
-  box-shadow: 0 2px 8px rgba(212,175,55,0.10);
-  background: #faf6ef;
-  transition: box-shadow .3s;
+  border: 4px solid #d4af37;
+  box-shadow: 0 4px 20px rgba(212,175,55,0.2), 0 2px 8px rgba(0,0,0,0.1);
+  background: linear-gradient(145deg, #faf6ef, #f5f0e6);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.team-photo::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #d4af37, #f4d03f, #d4af37);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
 }
 .team-card:hover .team-photo {
-  box-shadow: 0 8px 32px rgba(212,175,55,0.22);
+  box-shadow: 0 8px 32px rgba(212,175,55,0.3), 0 4px 16px rgba(0,0,0,0.15);
+  transform: scale(1.1);
+  border-color: #f4d03f;
+}
+
+.team-card:hover .team-photo::before {
+  opacity: 1;
 }
 
 .team-member-name {
@@ -2261,22 +2326,58 @@ body {
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: #d4af37;
-  margin-bottom: var(--space-4);
-  letter-spacing: 0.3px;
+  margin-bottom: var(--space-8);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+  transition: all 0.3s ease;
+}
+
+.team-card:hover .team-member-name {
+  color: #f4d03f;
+  text-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+  transform: scale(1.05);
 }
 
 .team-member-role {
   color: var(--color-primary);
-  font-weight: 550;
+  font-weight: 600;
   font-size: var(--font-size-md);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-12);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(45deg, var(--color-primary), #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+.team-card:hover .team-member-role {
+  background: linear-gradient(45deg, #d4af37, #f4d03f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .team-member-bio {
   color: var(--color-text-secondary);
   font-size: var(--font-size-base);
-  line-height: 1.5;
-  min-height: 44px;
+  line-height: 1.6;
+  min-height: 48px;
+  font-style: italic;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  padding: var(--space-8);
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: var(--radius-base);
+  border-left: 3px solid rgba(212, 175, 55, 0.3);
+}
+
+.team-card:hover .team-member-bio {
+  opacity: 1;
+  background: rgba(212, 175, 55, 0.08);
+  border-left-color: #d4af37;
+  transform: translateX(4px);
 }
 
 
@@ -2669,6 +2770,35 @@ body {
   text-decoration: line-through; 
   color: var(--color-text-secondary); 
   margin-right: var(--space-8); 
+}
+
+.subcategory-book-btn {
+  width: 100%;
+  margin-top: var(--space-16);
+  font-size: var(--font-size-base);
+  padding: var(--space-12) var(--space-20);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-normal) var(--ease-standard);
+  background: linear-gradient(135deg, var(--color-lavender-500) 0%, var(--color-lavender-600) 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.subcategory-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, var(--color-lavender-600) 0%, var(--color-lavender-700) 100%);
+}
+
+.subcategory-book-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.subcategory-book-btn i {
+  margin-right: var(--space-8);
 }
 
 /********************** FOOTER **********************/
@@ -4457,3 +4587,61 @@ body {
 }
 
 /* === Call to Action Section === */
+
+/* Category Booking Section */
+.category-booking {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-card-border) 100%);
+  border-top: 1px solid var(--color-card-border);
+}
+
+.booking-cta {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.booking-cta h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+}
+
+.booking-cta p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-32);
+  line-height: 1.6;
+}
+
+.category-book-btn {
+  font-size: var(--font-size-lg);
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.category-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+@media (max-width: 768px) {
+  .category-booking {
+    padding: 60px 0;
+  }
+  
+  .booking-cta h3 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .booking-cta p {
+    font-size: var(--font-size-base);
+  }
+  
+  .category-book-btn {
+    font-size: var(--font-size-base);
+    padding: var(--space-12) var(--space-24);
+  }
+}

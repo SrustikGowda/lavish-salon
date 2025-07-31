@@ -311,7 +311,7 @@
                         <div class="contact-card">
                             <div class="contact-icon"><i class="fas fa-clock"></i></div>
                             <h3>Opening Hours</h3>
-                            <p>Mon – Sat: 9:00 AM – 8:00 PM<br>Sunday: 10:00 AM – 6:00 PM</p>
+                            <p>Mon – Sat: 10:30 AM – 7:30 PM<br>Sunday: 11:00 AM – 6:00 PM</p>
                         </div>
                     </div>
                     <div class="map-wrapper">
@@ -433,7 +433,7 @@
         <div class="booking-modal-content">
             <div class="booking-modal-header">
                 <h2>Book Your Appointment</h2>
-                <button class="booking-close-btn" onclick="closeBookingModal()" aria-label="Close booking modal">
+                <button class="booking-close-btn" onclick="window.lavishhApp.features.booking.closeModal()" aria-label="Close booking modal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -491,7 +491,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="button" class="btn btn--outline" onclick="closeBookingModal()">Cancel</button>
+                    <button type="button" class="btn btn--outline" onclick="window.lavishhApp.features.booking.closeModal()">Cancel</button>
                     <button type="submit" class="btn btn--primary" id="submitBtn">
                         <i class="fab fa-whatsapp"></i>
                         Send WhatsApp Booking
@@ -513,6 +513,15 @@
     <!-- 7. SCRIPTS                           -->
     <!-- ===================================== -->
 
-    <script src="app.js" defer></script>
+    <!-- Configuration File (Load First) -->
+    <script src="config.js"></script>
+    
+    <!-- Feature Modules -->
+    <script src="js/features/discount.js"></script>
+    <script src="js/features/services.js"></script>
+    <script src="js/features/booking.js"></script>
+    
+    <!-- Main Application -->
+    <script src="js/app.js" defer></script>
 </body>
 </html>
