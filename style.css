@@ -753,10 +753,7 @@ html, body {
 .hidden { display: none !important; }
 
 /* === Hide Services Section on All Devices === */
-.footer-links .footer-section:nth-child(2),
-.footer-links .footer-section:nth-child(2) * {
-  display: none !important;
-}
+/* Removed - no longer needed since Services section was removed from HTML */
 
 /* Ensure no horizontal overflow */
 * {
@@ -1866,14 +1863,17 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
   margin-bottom: var(--space-24);
 }
 
-.footer-main {
-  max-width: 400px;
+.footer-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  text-align: left;
 }
 
 .footer-logo { 
@@ -1883,7 +1883,7 @@ body {
   font-family: 'Playfair Display', serif; 
   font-size: var(--font-size-2xl); 
   color: #d4af37; 
-  margin-bottom: var(--space-20); 
+  margin-bottom: 0; 
 }
 
 .footer-logo-img {
@@ -1898,9 +1898,10 @@ body {
 
 .footer-text { 
   color: var(--color-gray-300);
-  margin-bottom: var(--space-20);
+  margin-bottom: 0;
   line-height: 1.6;
   opacity: 0.8;
+  flex: 1;
 }
 
 .footer-social { 
@@ -1930,7 +1931,7 @@ body {
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-24);
 }
 
@@ -1980,14 +1981,13 @@ body {
   }
   
   .footer-content {
-    grid-template-columns: 1fr;
-    gap: var(--space-20);
-    text-align: center;
+    gap: var(--space-16);
   }
   
-  .footer-main {
-    max-width: 100%;
-    margin-bottom: var(--space-16);
+  .footer-header {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-12);
   }
   
   .footer-logo {
@@ -2021,7 +2021,12 @@ body {
   
   .footer-links {
     grid-template-columns: 1fr;
-    gap: var(--space-32);
+    gap: var(--space-16);
+  }
+  
+  .footer-social {
+    justify-content: center;
+    margin-top: var(--space-16);
   }
   
   .footer-section {
@@ -2066,10 +2071,7 @@ body {
   }
   
   /* Hide Services section on mobile to reduce clutter */
-  .footer-links .footer-section:nth-child(2),
-  .footer-links .footer-section:nth-child(2) * {
-    display: none !important;
-  }
+  /* Removed - no longer needed since Services section was removed from HTML */
   
   .footer-bottom {
     padding-top: var(--space-12);
@@ -2265,10 +2267,7 @@ body {
   }
   
   /* Hide Services section on small mobile to reduce clutter */
-  .footer-links .footer-section:nth-child(2),
-  .footer-links .footer-section:nth-child(2) * {
-    display: none !important;
-  }
+  /* Removed - no longer needed since Services section was removed from HTML */
 }
 
 /* === Booking Modal === */
