@@ -1969,14 +1969,73 @@ body {
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 20px;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
     gap: var(--space-24);
+    text-align: center;
+  }
+  
+  .footer-main {
+    max-width: 100%;
+    margin-bottom: var(--space-24);
+  }
+  
+  .footer-logo {
+    justify-content: center;
+    margin-bottom: var(--space-16);
+  }
+  
+  .footer-logo-img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .footer-text {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-16);
+  }
+  
+  .footer-social {
+    justify-content: center;
+    margin-bottom: var(--space-20);
+  }
+  
+  .social-link {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
   }
   
   .footer-links {
     grid-template-columns: 1fr;
     gap: var(--space-20);
+  }
+  
+  .footer-section {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+  
+  .footer-section h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+  }
+  
+  .footer-section ul li {
+    margin-bottom: var(--space-6);
+  }
+  
+  .footer-section ul li a {
+    font-size: var(--font-size-sm);
+  }
+  
+  .footer-bottom {
+    padding-top: var(--space-16);
+    font-size: var(--font-size-xs);
   }
 }
 
@@ -2080,6 +2139,54 @@ body {
   
   .service-card, .contact-card, .subcategory-card {
     padding: var(--space-24);
+  }
+  
+  /* Extra small mobile footer improvements */
+  .footer {
+    padding: 30px 0 15px;
+  }
+  
+  .footer-content {
+    padding: 0 16px;
+    gap: var(--space-20);
+  }
+  
+  .footer-logo-img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .footer-text {
+    font-size: var(--font-size-xs);
+    line-height: 1.5;
+  }
+  
+  .footer-social {
+    gap: var(--space-8);
+  }
+  
+  .social-link {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+  
+  .footer-section h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-8);
+  }
+  
+  .footer-section ul li {
+    margin-bottom: var(--space-4);
+  }
+  
+  .footer-section ul li a {
+    font-size: var(--font-size-xs);
+  }
+  
+  .footer-bottom {
+    padding-top: var(--space-12);
+    font-size: 10px;
   }
 }
 
