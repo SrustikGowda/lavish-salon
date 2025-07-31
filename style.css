@@ -1431,7 +1431,7 @@ body {
 .discount-card-content {
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
   border-radius: 25px;
-  padding: var(--space-16);
+  padding: var(--space-20);
   box-shadow: 
     0 30px 80px rgba(231, 76, 60, 0.5),
     0 15px 40px rgba(231, 76, 60, 0.4),
@@ -1441,7 +1441,7 @@ body {
     inset 0 -2px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
-  min-width: 200px;
+  min-width: 220px;
   backdrop-filter: blur(15px);
   border: 3px solid rgba(255, 255, 255, 0.3);
   transform: rotateX(5deg) rotateY(-2deg);
@@ -1558,7 +1558,7 @@ body {
 
 .discount-percentage-number {
   font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 900;
   color: white;
   animation: discountPercentageGlow 2s ease-in-out infinite;
@@ -1572,7 +1572,7 @@ body {
 
 .discount-percentage-symbol {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: white;
   line-height: 0.8;
@@ -1623,6 +1623,25 @@ body {
   letter-spacing: 0.5px;
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
   animation: discountCardRibbonPulse 1.5s ease-in-out infinite;
+}
+
+/* Ribbon Image */
+.discount-card::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  background-image: url('ribbon.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 3;
+  animation: discountCardPendulum 3s ease-in-out infinite;
+  transform-origin: top center;
+  mix-blend-mode: multiply;
+  filter: brightness(1.1) contrast(1.2);
 }
 
 /* Pendulum Animation */
@@ -1723,6 +1742,8 @@ body {
       0 0 20px rgba(255, 255, 255, 0.3);
   }
 }
+
+
 
 .hero-buttons { 
   display: flex; 
