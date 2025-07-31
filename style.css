@@ -1995,7 +1995,7 @@ body {
   }
   
   .footer-text {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     margin-bottom: var(--space-20);
     line-height: 1.6;
     padding: 0 10px;
@@ -2025,7 +2025,7 @@ body {
   }
   
   .footer-section h4 {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     margin-bottom: var(--space-16);
     color: var(--color-gold);
   }
@@ -2044,7 +2044,7 @@ body {
   }
   
   .footer-section ul li a {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     padding: 8px 12px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
@@ -2060,8 +2060,9 @@ body {
   }
   
   /* Hide Services section on mobile to reduce clutter */
-  .footer-section:nth-child(2) {
-    display: none;
+  .footer-links .footer-section:nth-child(2),
+  .footer-links .footer-section:nth-child(2) * {
+    display: none !important;
   }
   
   .footer-bottom {
@@ -2137,18 +2138,20 @@ body {
   
   /* Fix contact card email cutoff on mobile */
   .contact-card {
-    padding: var(--space-20);
+    padding: var(--space-20) !important;
   }
   
   .contact-card p {
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
   }
   
   .contact-card a {
-    word-break: break-all;
-    display: inline-block;
-    max-width: 100%;
+    word-break: break-all !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
   }
   
   .welcome-text {
@@ -2253,8 +2256,9 @@ body {
   }
   
   /* Hide Services section on small mobile to reduce clutter */
-  .footer-section:nth-child(2) {
-    display: none;
+  .footer-links .footer-section:nth-child(2),
+  .footer-links .footer-section:nth-child(2) * {
+    display: none !important;
   }
 }
 
@@ -3005,18 +3009,20 @@ body {
   
   /* Fix contact card email cutoff on small mobile */
   .contact-card {
-    padding: var(--space-16);
+    padding: var(--space-16) !important;
   }
   
   .contact-card p {
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
   }
   
   .contact-card a {
-    word-break: break-all;
-    display: inline-block;
-    max-width: 100%;
+    word-break: break-all !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
   }
 }
 
