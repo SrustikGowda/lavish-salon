@@ -452,8 +452,127 @@ class LavishhSalonApp {
   }
 
   openFullscreenGallery(imageSrc, imageAlt, imageIndex = 0) {
-    // Implementation for fullscreen gallery
-    // This would be implemented based on your gallery requirements
+    // Create fullscreen overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'fullscreen-gallery-overlay';
+    overlay.innerHTML = `
+      <div class="fullscreen-gallery-content">
+        <button class="fullscreen-close-btn" aria-label="Close gallery">
+          <i class="fas fa-times"></i>
+        </button>
+        
+        <button class="fullscreen-nav-btn fullscreen-prev-btn" aria-label="Previous image">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="fullscreen-gallery-image-container">
+          <img src="${imageSrc}" alt="${imageAlt}" class="fullscreen-gallery-image">
+        </div>
+        
+        <button class="fullscreen-nav-btn fullscreen-next-btn" aria-label="Next image">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="fullscreen-gallery-counter">
+          <span class="current-image">${imageIndex + 1}</span>
+          <span class="total-images">/ ${CONFIG.gallery.images.length}</span>
+        </div>
+      </div>
+    `;
+
+    // Add to body
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+    // Get elements
+    const closeBtn = overlay.querySelector('.fullscreen-close-btn');
+    const prevBtn = overlay.querySelector('.fullscreen-prev-btn');
+    const nextBtn = overlay.querySelector('.fullscreen-next-btn');
+    const image = overlay.querySelector('.fullscreen-gallery-image');
+    const counter = overlay.querySelector('.current-image');
+    const totalImages = overlay.querySelector('.total-images');
+
+    let currentIndex = imageIndex;
+
+    // Function to update image
+    const updateImage = (newIndex) => {
+      if (newIndex < 0) newIndex = CONFIG.gallery.images.length - 1;
+      if (newIndex >= CONFIG.gallery.images.length) newIndex = 0;
+      
+      currentIndex = newIndex;
+      const imageData = CONFIG.gallery.images[currentIndex];
+      
+      // Fade out current image
+      image.style.opacity = '0';
+      
+      setTimeout(() => {
+        image.src = imageData.image;
+        image.alt = imageData.alt;
+        counter.textContent = currentIndex + 1;
+        image.style.opacity = '1';
+      }, 150);
+    };
+
+    // Event listeners
+    closeBtn.addEventListener('click', () => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    });
+
+    prevBtn.addEventListener('click', () => {
+      updateImage(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      updateImage(currentIndex + 1);
+    });
+
+    // Keyboard navigation
+    const handleKeyPress = (e) => {
+      switch(e.key) {
+        case 'Escape':
+          overlay.remove();
+          document.body.style.overflow = '';
+          break;
+        case 'ArrowLeft':
+          updateImage(currentIndex - 1);
+          break;
+        case 'ArrowRight':
+          updateImage(currentIndex + 1);
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Click outside to close
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.remove();
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Cleanup function
+    const cleanup = () => {
+      document.removeEventListener('keydown', handleKeyPress);
+      document.body.style.overflow = '';
+    };
+
+    // Remove event listener when overlay is removed
+    overlay.addEventListener('remove', cleanup);
+    
+    // Fallback cleanup
+    setTimeout(() => {
+      if (!document.body.contains(overlay)) {
+        cleanup();
+      }
+    }, 100);
+
+    // Show overlay with animation
+    setTimeout(() => {
+      overlay.style.opacity = '1';
+    }, 10);
   }
 
   navigateTo(target) {
