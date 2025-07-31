@@ -743,9 +743,29 @@ select.form-control {
 /********************** GENERAL **********************/
 html, body {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .hidden { display: none !important; }
+
+/* Ensure no horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#main-page {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
 
 /********************** WELCOME OVERLAY **********************/
 .welcome-overlay {
@@ -2452,6 +2472,7 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   z-index: 1000;
+  pointer-events: auto;
 }
 
 .scroll-to-top:hover {
