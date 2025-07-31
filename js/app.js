@@ -148,13 +148,16 @@ class LavishhSalonApp {
   }
 
   setupEventListeners() {
-    // Booking button
+    // Booking button - only for buttons that don't have onclick attributes
     const bookButtons = document.querySelectorAll('.btn--primary, .nav-book-btn');
     bookButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.features.booking.openModal();
-      });
+      // Skip buttons that already have onclick handlers
+      if (!btn.hasAttribute('onclick')) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.features.booking.openModal();
+        });
+      }
     });
 
     // Back button
