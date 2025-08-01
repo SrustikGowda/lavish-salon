@@ -2,6 +2,8 @@
 // DISCOUNT CARD FEATURE
 // ========================================
 
+
+
 class DiscountCard {
   constructor() {
     this.card = document.getElementById('discount-card');
